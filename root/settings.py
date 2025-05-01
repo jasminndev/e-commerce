@@ -1,7 +1,11 @@
+from os import getenv
 from os.path import join
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR_D = Path(__file__).resolve().parent.parent
+load_dotenv(join(BASE_DIR_D, '.env'))
 
 SECRET_KEY = 'django-insecure-pp_&^_5i26+c#-bm!@#^h2*-c5d(snhssi-9c=*%7g(q2a_+=f'
 
@@ -10,6 +14,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    "unfold",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,10 +59,15 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': getenv('ENGINE'),
+        'NAME': getenv('DB_NAME'),
+        'USER': getenv('DB_USER'),
+        'PASSWORD': getenv('DB_PASS'),
+        'HOST': getenv('DB_HOST'),
+        'PORT': getenv('DB_PORT'),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -82,7 +92,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -97,6 +107,18 @@ STATIC_ROOT = join(BASE_DIR / 'static')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = join(BASE_DIR / 'media')
 
-
-
+AUTH_USER_MODEL = 'apps.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'muvvahhida@gmail.com'
+EMAIL_HOST_PASSWORD = 'xmcugbmtamedmmjs'
+EMAIL_USE_SSL = False
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0

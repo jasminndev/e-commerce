@@ -1,7 +1,14 @@
 from django.urls import path
-from django.views.generic import TemplateView
+
+from apps.views import HomeListView, CategoriesView, ProductDetail, AccountView, OrderView, SendMailFormView, \
+    RegisterCreateView
 
 urlpatterns = [
-    path('stream/', TemplateView.as_view(template_name='stream.html'), name='stream'),
-    path('', TemplateView.as_view(template_name='ert.html'), name='stream1'),
+    path('home', HomeListView.as_view(), name='home'),
+    path('electronics', CategoriesView.as_view(), name='electronics'),
+    path('product-detail', ProductDetail.as_view(), name='product_detail'),
+    path('signin', AccountView.as_view(), name='signin'),
+    path('order', OrderView.as_view(), name='order'),
+    path('send-email', SendMailFormView.as_view(), name='send_email'),
+    path('check-email', RegisterCreateView.as_view(), name='check_email'),
 ]
