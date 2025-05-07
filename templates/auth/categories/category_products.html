@@ -1,5 +1,7 @@
 {% extends 'auth/100k.uz.html' %}
 {% block base %}
+    {% load humanize %}
+
     <main class="client-template">
         <section class="main">
 
@@ -57,19 +59,16 @@
                         {% for product in products %}
                             <div class="col-sm-3 col-4" style="padding: 1px">
                                 <div class="content_grid_card" style="padding: 0px">
-                                    <a href="{% url 'product_detail' %}">
+                                    <a href="{% url 'product_detail' product.pk %}">
                                         <img loading="lazy" class=" lazyloaded"
-                                             src="{{ product.image.url }}"
+                                             src="{{ product.main_image.url }}"
                                              alt="{{ product.name }}">
                                     </a>
-
                                     <div class="content_grid_card_price">
-                                        <p> ${{ product.price }} </p>
+                                        <p> {{ product.price|intcomma }} so'm</p>
                                     </div>
                                 </div>
                             </div>
-
-
                         {% endfor %}
 
 

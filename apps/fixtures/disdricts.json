@@ -1,0 +1,82 @@
+[
+  {
+    "model": "apps.district",
+    "pk": 1,
+    "fields": {
+      "name": "Segili tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 2,
+    "fields": {
+      "name": "Shayhontohur tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 3,
+    "fields": {
+      "name": "Yunusobod tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 4,
+    "fields": {
+      "name": "Yakkasaroy tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 5,
+    "fields": {
+      "name": "Uchtepa tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 6,
+    "fields": {
+      "name": "Yashnobod tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 7,
+    "fields": {
+      "name": "Mirobod tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 8,
+    "fields": {
+      "name": "Mirzo UlugСbek tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 9,
+    "fields": {
+      "name": "Olmazor tumani",
+      "region": 1
+    }
+  },
+  {
+    "model": "apps.district",
+    "pk": 10,
+    "fields": {
+      "name": "Yangihayot tumani",
+      "region": 1
+    }
+  }
+]

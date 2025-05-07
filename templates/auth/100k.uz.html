@@ -204,7 +204,7 @@
                 <!-- user -->
                 <div class="header_navbar_profile">
                     <div class="d-flex align-items-center">
-                        <a href="https://admin.100k.uz" class="d-inline-block p-2">
+                        <a href="{% url 'login' %}" class="d-inline-block p-2">
                             <i class="fa fa-user mr-2"></i>
                             <span>Mening kabinetim</span>
                         </a>
@@ -291,7 +291,7 @@
             <div class="col-lg col-sm-6">
                 <ul class="nav flex-column">
                     <li>
-                        <a href="/profile" class="nav-link">Mening kabinetim </a>
+                        <a href="{% url 'login' %}" class="nav-link">Mening kabinetim </a>
                     </li>
                 </ul>
             </div>

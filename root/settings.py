@@ -1,11 +1,12 @@
+import os
 from os import getenv
 from os.path import join
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR_D = Path(__file__).resolve().parent.parent
-load_dotenv(join(BASE_DIR_D, '.env'))
+load_dotenv('.env')
 
 SECRET_KEY = 'django-insecure-pp_&^_5i26+c#-bm!@#^h2*-c5d(snhssi-9c=*%7g(q2a_+=f'
 
@@ -21,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     # My apps
     'apps'
 ]
@@ -59,15 +61,14 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': getenv('ENGINE'),
-        'NAME': getenv('DB_NAME'),
-        'USER': getenv('DB_USER'),
-        'PASSWORD': getenv('DB_PASS'),
-        'HOST': getenv('DB_HOST'),
-        'PORT': getenv('DB_PORT'),
+        'ENGINE': os.getenv('ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -110,13 +111,12 @@ MEDIA_ROOT = join(BASE_DIR / 'media')
 AUTH_USER_MODEL = 'apps.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'muvvahhida@gmail.com'
-EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = False
 
 REDIS_HOST = 'localhost'

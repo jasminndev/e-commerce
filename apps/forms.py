@@ -16,22 +16,14 @@ class EmailForm(Form):
 
 
 class RegisterModelForm(ModelForm):
-    password = CharField(widget=PasswordInput())
-    password_confirm = CharField(widget=PasswordInput())
+    # password = CharField(widget=PasswordInput())
+    # password_confirm = CharField(widget=PasswordInput())
     sms = CharField(label='SMS Code')
     email = EmailField()
 
     class Meta:
         model = User
-        fields = ['email', 'sms', 'password', 'password_confirm']
-
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get('password')
-        password_confirm = cleaned_data.get('password_confirm')
-        if password and password_confirm and password != password_confirm:
-            raise ValidationError("Passwords do not match.")
-        return cleaned_data
+        fields = 'email', 'sms',
 
     def save(self, commit=True):
         user = super().save(commit=False)

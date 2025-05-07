@@ -19,15 +19,17 @@ class Category(Model):
 class Product(Model):
     main_image = ImageField(upload_to='products', null=False, blank=False)
     name = CharField(max_length=255)
-    price = DecimalField(max_digits=10, decimal_places=2)
+    price = DecimalField(max_digits=10, decimal_places=0)
+    discount = DecimalField(max_digits=10, decimal_places=0)
+    # orders = DecimalField(max_digits=255, decimal_places=0)
     quantity = SmallIntegerField(default=1)
     description = TextField()
     reviews = TextField(null=True, blank=True)
     video = FileField(upload_to='products', null=True, blank=True)
     created_at = DateTimeField(auto_now_add=True)
-    attribute_id = ForeignKey('apps.Attribute', on_delete=CASCADE, related_name='products',null=True, blank=True)
-    seller_id = ForeignKey('apps.Seller', on_delete=CASCADE, related_name='products',null=True, blank=True)
-    category = ForeignKey('apps.Category', on_delete=models.CASCADE, related_name='products',)
+    attribute_id = ForeignKey('apps.Attribute', on_delete=CASCADE, related_name='products', null=True, blank=True)
+    seller_id = ForeignKey('apps.Seller', on_delete=CASCADE, related_name='products', null=True, blank=True)
+    category = ForeignKey('apps.Category', on_delete=models.CASCADE, related_name='products', )
 
 
 class Attribute(Model):
@@ -102,6 +104,7 @@ class CustomerUser(UserManager):
 
 
 class User(AbstractUser):
+    username = None
     email = EmailField(max_length=255, unique=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

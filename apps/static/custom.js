@@ -4,8 +4,8 @@ $(document).ready(function () {
         showMaskOnHover: true,
         showMaskOnFocus: true,
         onBeforePaste: function (pastedValue, opts) {
-            return pastedValue.replace(/\D/g,'').slice(-9);
+            return pastedValue.replace(/\D/g, '').slice(-9);
         }
     });
-    
+
 });
