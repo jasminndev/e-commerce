@@ -1,0 +1,70 @@
+{% extends '100k.html' %}
+{% block base %}
+    {% load humanize %}
+
+    <main class="client-template">
+        <section class="main">
+
+
+            <div class="container border-bottom-4">
+                <div class="header_tab_menu">
+                    <div class="header_menu" style="overflow: auto">
+                        <a href="" class="btn btn-default">Barchasi</a>
+
+                        {% for category in categories %}
+                            <a href="{% url 'category_products' %}?category={{ category.name }}"
+                               class="btn btn-default {% if category.pk == active_category_id %}active{% endif %}">
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <style>
+                    .header_menu {
+                        padding: 12px;
+                    }
+
+                    .header_menu .btn-default {
+                        border: 1px solid #ddd;
+                        border-radius: 20px;
+                        padding: 10px;
+                        font-size: 15px;
+                        white-space: nowrap;
+                    }
+
+                    .header_menu .btn-default.active,
+                    .header_menu .btn-default:hover {
+                        background-color: #eee;
+                    }
+                </style>
+            </div>
+
+            <div class="container" id="productsList">
+                <div class="content_grid">
+                    <div id="product-list" class="row">
+                        {% for product in products %}
+                            {% with product.images.all.0 as first_image %}
+                                {% if first_image %}
+                                    <div class="col-sm-3 col-4" style="padding: 1px">
+                                        <div class="content_grid_card" style="padding: 0px">
+                                            <a href="{% url 'product_detail' product.pk %}">
+                                                <img loading="lazy" class="lazyloaded"
+                                                     src="{{ first_image.image_file.url }}"
+                                                     alt="{{ product.name }}">
+                                            </a>
+                                            <div class="content_grid_card_price">
+                                                <p> {{ product.discount_price|floatformat:"0"|intcomma }} so'm</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

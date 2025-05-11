@@ -2,11 +2,12 @@
 {#<html lang="uz">#}
 {#<head>#}
 {#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
 {#    <title>Reklamachilar kabinetiga kirish</title>#}
 {#    <style>#}
 {#        body {#}
 {#            font-family: Arial, sans-serif;#}
-{#            background: #ffffff;#}
+{#            background-color: #f9f9f9;#}
 {#            display: flex;#}
 {#            justify-content: center;#}
 {#            align-items: center;#}
@@ -16,61 +17,73 @@
 {##}
 {#        .container {#}
 {#            background: white;#}
-{#            padding: 30px;#}
-{#            border-radius: 12px;#}
-{#            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);#}
-{#            width: 320px;#}
+{#            padding: 40px 30px;#}
+{#            border-radius: 10px;#}
+{#            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);#}
 {#            text-align: center;#}
+{#            width: 320px;#}
 {#        }#}
 {##}
-{#        h2 {#}
+{#        .container h1 {#}
+{#            font-size: 24px;#}
 {#            margin-bottom: 20px;#}
 {#        }#}
 {##}
-{#        input {#}
+{#        .input-group {#}
+{#            margin-bottom: 15px;#}
+{#            text-align: left;#}
+{#        }#}
+{##}
+{#        .input-group label {#}
+{#            font-size: 14px;#}
+{#            display: block;#}
+{#            margin-bottom: 5px;#}
+{#        }#}
+{##}
+{#        .input-group input {#}
 {#            width: 100%;#}
-{#            padding: 12px;#}
-{#            margin: 10px 0;#}
+{#            padding: 10px;#}
+{#            font-size: 16px;#}
 {#            border: 1px solid #ddd;#}
 {#            border-radius: 8px;#}
-{#            background-color: #f7f7fb;#}
 {#        }#}
 {##}
-{#        button {#}
+{#        .checkbox-group {#}
+{#            margin-bottom: 20px;#}
+{#            text-align: left;#}
+{#            font-size: 14px;#}
+{#        }#}
+{##}
+{#        .checkbox-group input {#}
+{#            margin-right: 8px;#}
+{#        }#}
+{##}
+{#        .btn {#}
+{#            display: block;#}
 {#            width: 100%;#}
 {#            padding: 12px;#}
-{#            margin-top: 10px;#}
+{#            font-size: 16px;#}
 {#            border: none;#}
 {#            border-radius: 8px;#}
-{#            font-size: 16px;#}
 {#            cursor: pointer;#}
+{#            margin-bottom: 10px;#}
 {#        }#}
 {##}
-{#        .btn-yellow {#}
-{#            background-color: #ffc107;#}
-{#            color: black;#}
+{#        .btn-primary {#}
+{#            background-color: #ffe082;#}
+{#            color: #000;#}
+{#            font-weight: bold;#}
 {#        }#}
 {##}
-{#        .btn-grey {#}
-{#            background-color: #f0f0f0;#}
-{#            color: black;#}
-{#        }#}
-{##}
-{#        .checkbox {#}
-{#            display: flex;#}
-{#            align-items: center;#}
-{#            margin: 10px 0;#}
-{#        }#}
-{##}
-{#        .checkbox input {#}
-{#            width: auto;#}
-{#            margin-right: 8px;#}
+{#        .btn-secondary {#}
+{#            background-color: #f1f1f1;#}
+{#            color: #333;#}
 {#        }#}
 {##}
 {#        .footer {#}
 {#            margin-top: 20px;#}
 {#            font-size: 12px;#}
-{#            color: #555;#}
+{#            color: #666;#}
 {#        }#}
 {##}
 {#        .footer a {#}
@@ -79,78 +92,66 @@
 {#            margin: 0 5px;#}
 {#        }#}
 {##}
-{#        .password-toggle {#}
-{#            position: relative;#}
-{#        }#}
-{##}
-{#        .password-toggle-btn {#}
-{#            position: absolute;#}
-{#            right: 10px;#}
-{#            top: 14px;#}
-{#            cursor: pointer;#}
+{#        .footer a:hover {#}
+{#            text-decoration: underline;#}
 {#        }#}
 {#    </style>#}
 {#</head>#}
 {#<body>#}
-{#<form action="{% url 'send_email' %}" method="POST">#}
+{#<form action="{% url 'check_email' %}" method="POST">#}
 {#    {% csrf_token %}#}
 {#    <div class="container">#}
-{#        <h2>Reklamachilar kabinetiga kirish</h2>#}
-{#        <div id="form-section">#}
-{#            <input type="email" id="email" placeholder="Email" name="email">#}
-{#            <div class="password-toggle">#}
-{#                <input type="password" id="password" placeholder="Parolni kiriting">#}
-{#                <span class="password-toggle-btn" onclick="togglePassword()">👁️</span>#}
-{#            </div>#}
-{#            <div class="checkbox">#}
-{#                <input type="checkbox" id="terms2">#}
-{#                <label for="terms2">Men <a href="#">foydalanish shartlari</a> bilan tanishdim</label>#}
-{#            </div>#}
-{#            <button type="submit" class="btn-yellow">Tizimga kirish</button>#}
-{#            <button class="btn-grey" onclick="showSMSLogin()">SMS kod orqali kirish</button>#}
+{#        <h1>Reklamachilar kabinetiga kirish</h1>#}
+{##}
+{#        <!-- Email input -->#}
+{#        <div class="input-group">#}
+{#            <label for="email">Email:</label>#}
+{#            <input type="email" id="email" placeholder="Emailni kiriting" name="email" required>#}
 {#        </div>#}
-{#        <div class="footer">#}
-{#            <a href="#">Maxfiylik siyosati</a> |#}
-{#            <a href="#">Foydalanish shartlari</a>#}
-{#            <br>Copyright © 2020 Barcha huquqlar himoyalangan#}
+{##}
+{#        <!-- SMS Code input -->#}
+{#        <div class="input-group">#}
+{#            <label for="sms">SMS kod:</label>#}
+{#            <input type="text" id="sms" placeholder="SMS kodni kiriting" name="sms" required>#}
 {#        </div>#}
+{##}
+{#        <!-- Password input -->#}
+{#        <div class="input-group">#}
+{#            <label for="password">Parol:</label>#}
+{#            <input type="password" id="password" placeholder="Parolni kiriting" name="password" required>#}
+{#        </div>#}
+{##}
+{#        <!-- Password Confirm input -->#}
+{#        <div class="input-group">#}
+{#            <label for="password_confirm">Parolni tasdiqlang:</label>#}
+{#            <input type="password" id="password_confirm" placeholder="Parolni tasdiqlang" name="password_confirm"#}
+{#                   required>#}
+{#        </div>#}
+{##}
+{#        <!-- Checkbox for terms -->#}
+{#        <div class="checkbox-group">#}
+{#            <input type="checkbox" id="terms" required>#}
+{#            <label for="terms">Men <a href="#">foydalanish shartlari</a> bilan tanishdim</label>#}
+{#        </div>#}
+{##}
+{#        <!-- Submit button -->#}
+{#        <button class="btn btn-primary" type="submit">Tizimga kirish</button>#}
+{#        <button class="btn btn-secondary" type="button" onclick="window.location.href='{% url 'signin' %}'">Shaxsiy#}
+{#            parol orqali kirish#}
+{#        </button>#}
+{#    </div>#}
+{##}
+{#    <!-- Footer -->#}
+{#    <div class="footer">#}
+{#        <a href="#">Maxfiylik siyosati</a> |#}
+{#        <a href="#">Foydalanish shartlari</a><br>#}
+{#        Copyright © 2020 Barcha huquqlar himoyalangan#}
 {#    </div>#}
 {#</form>#}
 {##}
 {##}
-{#<script>#}
-{#    function showPasswordLogin() {#}
-{#        document.getElementById('form-section').style.display = 'none';#}
-{#        document.getElementById('password-section').style.display = 'block';#}
-{#    }#}
-{##}
-{#    function showSMSLogin() {#}
-{#        document.getElementById('password-section').style.display = 'none';#}
-{#        document.getElementById('form-section').style.display = 'block';#}
-{#    }#}
-{##}
-{#    function togglePassword() {#}
-{#        const passwordInput = document.getElementById('password');#}
-{#        if (passwordInput.type === "password") {#}
-{#            passwordInput.type = "text";#}
-{#        } else {#}
-{#            passwordInput.type = "password";#}
-{#        }#}
-{#    }#}
-{##}
-{#    function showPasswordForm() {#}
-{#        alert('SMS kod yuborildi (bu faqat frontend dizaynidir)');#}
-{#    }#}
-{##}
-{#    function submitLogin() {#}
-{#        alert('Tizimga kirdingiz! (bu faqat frontend dizaynidir)');#}
-{#    }#}
-{#</script>#}
-{##}
 {#</body>#}
 {#</html>#}
-{##}
-
 {% load static %}
 <!DOCTYPE html>
 <!-- saved from url=(0028)https://admin.100k.uz/signin -->
@@ -163,9 +164,9 @@
     <meta name="description" content="Advertiserlar uchun admin panel">
     <link rel="apple-touch-icon" href="https://admin.100k.uz/logo192.png">
     <link rel="manifest" href="https://admin.100k.uz/manifest.json">
-    <link rel="stylesheet" href="{% static 'email_files/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'check_email__files/all.min.css' %}">
     <title>Reklamachilar kabineti</title>
-    <link href="{% static 'email_files/main.bbfc6021.css' %}" rel="stylesheet">
+    <link href="{% static 'check_email__files/main.bbfc6021.css' %}" rel="stylesheet">
     <style id="_goober"> @keyframes go2264125279 {
                              from {
                                  transform: scale(0) rotate(45deg);
@@ -253,6 +254,51 @@
 
     .go4109123758 > * {
         pointer-events: auto;
+    }
+
+    .go2072408551 {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        color: #363636;
+        line-height: 1.3;
+        will-change: transform;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05);
+        max-width: 350px;
+        pointer-events: auto;
+        padding: 8px 10px;
+        border-radius: 8px;
+    }
+
+    .go3958317564 {
+        display: flex;
+        justify-content: center;
+        margin: 4px 10px;
+        color: inherit;
+        flex: 1 1 auto;
+        white-space: pre-line;
+    }
+
+    @keyframes go3223188581 {
+        0% {
+            transform: translate3d(0, -200%, 0) scale(.6);
+            opacity: .5;
+        }
+        100% {
+            transform: translate3d(0, 0, 0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes go502128938 {
+        0% {
+            transform: translate3d(0, 0, -1px) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translate3d(0, -150%, -1px) scale(.6);
+            opacity: 0;
+        }
     }</style>
     <style data-cke="true">.ck .ck-placeholder, .ck.ck-placeholder {
         position: relative
@@ -3468,10 +3514,72 @@
         display: inline-block;
         width: 100%
     }</style>
-    <link rel="stylesheet" type="text/css" href="{% static 'email_files/591.e6196dcd.chunk.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'email_files/905.a466c525.chunk.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'check_email__files/591.e6196dcd.chunk.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'check_email__files/905.a466c525.chunk.css' %}">
 </head>
 <body>
+<script>
+    function sendSMS(event) {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+
+        fetch('/send-sms/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({email})
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // 1-stepni yashirish, 2-stepni ko‘rsatish
+                    document.getElementById("step1").classList.remove("active");
+                    document.getElementById("step2").classList.add("active");
+                } else {
+                    alert(data.message || "Xatolik yuz berdi");
+                }
+            });
+    }
+
+    function verifyCode() {
+    const code = document.getElementById("sms_code").value;
+    const email = document.getElementById("email").value;
+
+    fetch('/verify-code/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({email, code})
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/dashboard/';
+        } else {
+            alert(data.message || "Kod noto‘g‘ri.");
+        }
+    });
+}
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root">
     <div class="app">
@@ -3489,35 +3597,38 @@
                 </svg>
             </a></header>
             <main>
-                <form action="{% url 'send_email' %}" method="POST">
+                <form action="{% url 'check_email' %}" method="POST">
                     {% csrf_token %}
-                    <form><h1>Reklamachilar <br> kabinetiga kirish</h1>
-                        <div class="form-input mb-20"><label for="phone">Emailingizni kiriting</label><input
-                                type="email"
-                                placeholder="example@gmail.com"
-                                id="email"
-                                name="email"></div>
-                        <div class="form-checkbox">
-                            <div class="checkbox">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"
-                                          fill="#293462"></path>
-                                </svg>
-                            </div>
-                            <label>Men <a href="https://api.100k.uz/offers/oferta-shartnoma-admin.pdf"
-                                          class="h-underline"
-                                          target="_blank" rel="noreferrer">foydalanish shartlari</a> bilan
-                                tanishdim</label>
+                    <h1>Reklamachilar <br> kabinetiga kirish</h1>
+                    <div class="form-input mb-20"><label for="phone">Email</label><input type="email"
+                                                                                                       value="{{ email }}" required
+                                                                                                       id="email"
+                                                                                                       name="email"  >
+                    </div>
+                    <div class="form-input mb-10"><label>SMS kod</label><input type="number" name="sms"
+                                                                               autocomplete="off"
+                                                                               placeholder="SMS kodni kiriting"
+                                                                               class="sms-code"></div>
+                    <div class="form-checkbox">
+                        <div class="checkbox">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"
+                                      fill="#1CCA18"></path>
+                            </svg>
                         </div>
-                        <button href="{% url 'check_email' %}" type="submit" class="primary">SMS kodni olish</button>
-                        <button type="button">Shaxsiy parol orqali kirish</button>
-                    </form>
-                    <div class="footer">
-                        <div class="footer__links"><a href="https://100k.uz/pages/privacy-policy">Maxfiylik siyosati</a><a
-                                href="https://100k.uz/pages/privacy-policy">Foydalanish shartlari</a></div>
-                        <p>Copyright © 2020 Barcha huquqlar himoyalangan</p></div>
+                        <label>Men <a href="https://api.100k.uz/offers/oferta-shartnoma-admin.pdf"
+                                      class="h-underline"
+                                      target="_blank" rel="noreferrer">foydalanish shartlari</a> bilan
+                            tanishdim</label>
+                    </div>
+                    <button type="submit" class="primary">Tizimga kirish</button>
+                    <button href="{% url 'login_w_passwd' %}" type="button">Shaxsiy parol orqali kirish</button>
                 </form>
+                <div class="footer">
+                    <div class="footer__links"><a href="https://100k.uz/pages/privacy-policy">Maxfiylik siyosati</a><a
+                            href="https://100k.uz/pages/privacy-policy">Foydalanish shartlari</a></div>
+                    <p>Copyright © 2020 Barcha huquqlar himoyalangan</p></div>
             </main>
         </div>
     </div>
@@ -3527,6 +3638,6 @@
 <div id="select-menus"></div>
 <input id="copy" style="opacity:0;height:0;position:absolute;z-index:-1">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CString.prototype.replaceAll%2CSymbol.replace"></script>
-<script src="{% static 'email_files/script.js' %}"></script>
+<script src="{% static 'check_email__files/script.js' %}"></script>
 </body>
 </html>

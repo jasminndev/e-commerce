@@ -1,8 +1,10 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import UserManager, AbstractUser
 from django.db import models
-from django.db.models import Model, ImageField, CharField, DecimalField, SmallIntegerField, TextField, ForeignKey, \
+from django.db.models import Model, ImageField, CharField, DecimalField, TextField, ForeignKey, \
     DateTimeField, CASCADE, BooleanField, EmailField, TextChoices, FileField
+from django.db.models.fields import PositiveIntegerField
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Category(Model):
@@ -17,19 +19,29 @@ class Category(Model):
 
 
 class Product(Model):
-    main_image = ImageField(upload_to='products', null=False, blank=False)
     name = CharField(max_length=255)
     price = DecimalField(max_digits=10, decimal_places=0)
-    discount = DecimalField(max_digits=10, decimal_places=0)
-    # orders = DecimalField(max_digits=255, decimal_places=0)
-    quantity = SmallIntegerField(default=1)
-    description = TextField()
-    reviews = TextField(null=True, blank=True)
-    video = FileField(upload_to='products', null=True, blank=True)
+    discount = PositiveIntegerField()
+    quantity = PositiveIntegerField()
+    main_image = ImageField(upload_to='product/%Y/%m/%d/')
+    description = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
+    manual = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
     created_at = DateTimeField(auto_now_add=True)
-    attribute_id = ForeignKey('apps.Attribute', on_delete=CASCADE, related_name='products', null=True, blank=True)
-    seller_id = ForeignKey('apps.Seller', on_delete=CASCADE, related_name='products', null=True, blank=True)
+    bonus_price = DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)
+    attribute = ForeignKey('apps.Attribute', on_delete=CASCADE, related_name='products', null=True, blank=True)
+    seller = ForeignKey('apps.Seller', on_delete=CASCADE, related_name='products', null=True, blank=True)
     category = ForeignKey('apps.Category', on_delete=models.CASCADE, related_name='products', )
+
+    @property
+    def discount_price(self):
+        price = int(self.price)
+        return price - price * (self.discount / 100)
+
+
+class ProductImage(Model):
+    image_file = ImageField(upload_to='product/%Y/%m/%d/', null=True, blank=True)
+    video = FileField(upload_to='products', null=True, blank=True)
+    product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='images')
 
 
 class Attribute(Model):
@@ -56,11 +68,6 @@ class ProductTag(Model):
 class Option(Model):
     name = CharField(max_length=255)
     attribute = ForeignKey('apps.Attribute', on_delete=CASCADE, related_name='options')
-
-
-class ProductImage(Model):
-    image_file = ImageField(upload_to='product_images', null=True, blank=True)
-    product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='product_images')
 
 
 class Region(Model):
@@ -129,7 +136,7 @@ class Transaction(Model):
     review = TextField()
     status = CharField(max_length=255, choices=StatusType, default=StatusType.PENDING)
     created_at = DateTimeField(auto_now_add=True)
-    payment_id = ForeignKey('apps.Payment', on_delete=CASCADE, related_name='transactions')
+    payment = ForeignKey('apps.Payment', on_delete=CASCADE, related_name='transactions')
 
 
 class Account(Model):
@@ -189,9 +196,12 @@ class Charity(Model):
 
 
 class Delivery(Model):
+    class Meta:
+        verbose_name_plural = "deliveries"
+
     name = CharField(max_length=255)
     price = DecimalField(max_digits=10, decimal_places=2)
-    description = TextField()
+    description = TextField(null=True, blank=True)
     delivery_time = DateTimeField()
     phone_number = CharField(max_length=255)
 

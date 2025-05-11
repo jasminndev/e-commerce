@@ -1,5 +1,8 @@
 from django.contrib import admin
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
+from django.utils.timezone import localtime
+from unfold.admin import TabularInline
+
 from apps.models import *
 
 admin.site.unregister(Group)
@@ -25,20 +28,14 @@ class CategoryAdmin(admin.ModelAdmin):
     icon_tag.short_description = 'Icon'
 
 
-# @admin.register(Category)
-# class CategoryAdmin(admin.ModelAdmin):
-#     list_display = ('name',)
-#     icon = html.format_html('<img width="64" height="64" src="https://img.icons8.com/external-icongeek26-linear-colour-icongeek26/64/external-Headphones-academy-icongeek26-linear-colour-icongeek26.png" alt="external-Headphones-academy-icongeek26-linear-colour-icongeek26"/>')
+class ProductImageAdmin(TabularInline):
+    model = ProductImage
 
-# def is_quantity(self, obj):
-#     if obj.quantity > 0:
-#         return html.format_html('<img width="30" height="30" src="https://img.icons8.com/color/30/checked--v1.png" alt="checked--v1"/>')
-#     else:
-#         return html.format_html('<img width="30" height="30" src="https://img.icons8.com/emoji/30/cross-mark-button-emoji.png" alt="cross-mark-button-emoji"/>')
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'quantity', 'description', 'category', 'reviews', 'main_image')
+    list_display = ('name', 'price', 'quantity', 'description', 'category', 'discount')
+    inlines = ProductImageAdmin,
 
 
 @admin.register(Attribute)
@@ -59,11 +56,6 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Option)
 class OptionAdmin(admin.ModelAdmin):
     list_display = ('name',)
-
-
-@admin.register(ProductImage)
-class ProductImageAdmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(Region)
@@ -94,3 +86,12 @@ class AccountAdmin(admin.ModelAdmin):
 @admin.register(Query)
 class QueryAdmin(admin.ModelAdmin):
     list_display = ('description', 'stream', 'created_at')
+
+
+@admin.register(Delivery)
+class DeliveryAdmin(admin.ModelAdmin):
+    def formatted_delivery_time(self, obj):
+        return localtime(obj.delivery_time).strftime('%Y-%m-%d %H:%M')
+
+    formatted_delivery_time.short_description = 'Delivery time'
+    list_display = ('id', 'formatted_delivery_time')

@@ -1,4 +1,4 @@
-{% extends 'auth/100k.uz.html' %}
+{% extends '100k.html' %}
 {% block base %}
     {% load humanize %}
     <style>
@@ -52,28 +52,23 @@
     </style>
     <main class="client-template">
         <section class="main">
-
             <div class="siteCategories pt-5 pb-3">
                 <div class="container">
                     <div class="row">
                         <div class="category-grid">
                             {% for category in categories %}
                                 <div class="category-item">
-                                    <a class="siteCategories--item" href="{% url 'category_products' %}">
+                                    <a class="siteCategories--item"
+                                       href="{% url 'category_products' %}?category={{ category.name }}">
                                         <div class="category-icon">
                                             <img src="{{ category.icon }}" alt="{{ category.name }}" width="100"
                                                  height="100">
                                             <br>
-
                                         </div>
-
-
                                         <span> {{ category.name }} </span>
                                     </a>
                                 </div>
                             {% endfor %}
-
-
                         </div>
                     </div>
                 </div>
@@ -93,21 +88,28 @@
                     </div>
                     <div class="row">
                         {% for product in products %}
-
                             <div class="col-md-3 col-sm-4 col-6">
                                 <div class="productsList--item">
-                                    <a href="{% url 'product_detail' product.pk %}" class="productsList--item--link"></a>
+                                    <a href="{% url 'product_detail' product.pk %}"
+                                       class="productsList--item--link"></a>
                                     <div class="productsList--item--image">
-                                        <img src="{{ product.main_image.url }}"
-                                             width="200" height="200"
-                                             alt="{{ product.name }}">
+                                        {% with product.images.all.first as first_image %}
+                                            <div class="text-center">
+                                                <img src="{{ first_image.image_file.url }}"
+                                                     width="200" height="200"
+                                                     alt="{{ product.name }}">
+                                            </div>
+                                        {% endwith %}
                                     </div>
                                     <div class="productsList--item--info">
                                         <div class="productsList--item--title">
                                             {{ product.name }}
                                         </div>
                                         <div class="productsList--item--price">
-                                            <strong class="font-weight-bold"> {{ product.price|intcomma }} sum</strong>
+                                            <strong class="font-weight-bold"> {{ product.discount_price|floatformat:"0"|intcomma }}
+                                                so'm</strong>
+                                            <strike class="small font-weight-bold"> {{ product.price|floatformat:"0"|intcomma }}
+                                                so'm </strike>
                                             <span class="small"></span>
                                         </div>
                                         <div class="productsList--item--orders">
@@ -119,8 +121,6 @@
                         {% endfor %}
 
                     </div>
-
-
                 </div>
 
                 <div class="productsList py-4">
@@ -135,40 +135,42 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                                        <div class="row">
                         {% for product in products %}
                             <div class="col-md-3 col-sm-4 col-6">
                                 <div class="productsList--item">
-                                    <a href="/shop/product/aqliy-quvvat-va-xotirani-mustahkamlash-uchun-nji-dil-biovositasi"
+                                    <a href="{% url 'product_detail' product.pk %}"
                                        class="productsList--item--link"></a>
                                     <div class="productsList--item--image">
-                                        <img src="{{ product.main_image.url }}"
-                                             width="200" height="200"
-                                             alt="{{ product.name }}">
+                                        {% with product.images.all.first as first_image %}
+                                            <div class="text-center">
+                                                <img src="{{ first_image.image_file.url }}"
+                                                     width="200" height="200"
+                                                     alt="{{ product.name }}">
+                                            </div>
+                                        {% endwith %}
                                     </div>
                                     <div class="productsList--item--info">
                                         <div class="productsList--item--title">
                                             {{ product.name }}
                                         </div>
                                         <div class="productsList--item--price">
-                                            <strong class="font-weight-bold"> {{ product.price|intcomma }} </strong>
-                                            <strike class="small font-weight-bold"> {{ product.discount|intcomma }} </strike>
-                                            <span class="small">so'm</span>
+                                            <strong class="font-weight-bold"> {{ product.discount_price|floatformat:"0"|intcomma }}
+                                                so'm</strong>
+                                            <strike class="small font-weight-bold"> {{ product.price|floatformat:"0"|intcomma }}
+                                                so'm </strike>
+                                            <span class="small"></span>
                                         </div>
                                         <div class="productsList--item--orders">
-                                            buyurtmalar: 136
+                                            {{ product.quantity }}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <style>
-                                .productsList--item--image {
-                                    height: 200px;
-                                    object-fit: cover;
-                                }
-                            </style>
                         {% endfor %}
+
                     </div>
+
                 </div>
             </div>
 

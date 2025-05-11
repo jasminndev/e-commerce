@@ -10,10 +10,9 @@
     <meta name="description" content="Advertiserlar uchun admin panel">
     <link rel="apple-touch-icon" href="https://admin.100k.uz/logo192.png">
     <link rel="manifest" href="https://admin.100k.uz/manifest.json">
-    <link rel="stylesheet" href="{% static 'login_with_passwd_files/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'email_files/all.min.css' %}">
     <title>Reklamachilar kabineti</title>
-    <script defer="defer" src="{% static 'login_with_passwd_files/main.c843fc81.js' %}"></script>
-    <link href="{% static 'login_with_passwd_files/main.bbfc6021.css' %}" rel="stylesheet">
+    <link href="{% static 'email_files/main.bbfc6021.css' %}" rel="stylesheet">
     <style id="_goober"> @keyframes go2264125279 {
                              from {
                                  transform: scale(0) rotate(45deg);
@@ -101,51 +100,6 @@
 
     .go4109123758 > * {
         pointer-events: auto;
-    }
-
-    .go2072408551 {
-        display: flex;
-        align-items: center;
-        background: #fff;
-        color: #363636;
-        line-height: 1.3;
-        will-change: transform;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05);
-        max-width: 350px;
-        pointer-events: auto;
-        padding: 8px 10px;
-        border-radius: 8px;
-    }
-
-    .go3958317564 {
-        display: flex;
-        justify-content: center;
-        margin: 4px 10px;
-        color: inherit;
-        flex: 1 1 auto;
-        white-space: pre-line;
-    }
-
-    @keyframes go3223188581 {
-        0% {
-            transform: translate3d(0, -200%, 0) scale(.6);
-            opacity: .5;
-        }
-        100% {
-            transform: translate3d(0, 0, 0) scale(1);
-            opacity: 1;
-        }
-    }
-
-    @keyframes go502128938 {
-        0% {
-            transform: translate3d(0, 0, -1px) scale(1);
-            opacity: 1;
-        }
-        100% {
-            transform: translate3d(0, -150%, -1px) scale(.6);
-            opacity: 0;
-        }
     }</style>
     <style data-cke="true">.ck .ck-placeholder, .ck.ck-placeholder {
         position: relative
@@ -3361,20 +3315,57 @@
         display: inline-block;
         width: 100%
     }</style>
-    <link rel="stylesheet" type="text/css" href="{% static 'login_with_passwd_files/591.e6196dcd.chunk.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'login_with_passwd_files/905.a466c525.chunk.css' %}">
+    <style>
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #293462;
+            cursor: pointer;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .checkbox svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .h-underline {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .h-underline:hover {
+            text-decoration: underline;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'email_files/591.e6196dcd.chunk.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'email_files/905.a466c525.chunk.css' %}">
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root">
     <div class="app">
         <div class="page-signin">
-            <header><a href="https://100k.uz/" class="left">
+            <header><a href="{% url 'home' %}" class="left">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"
                           fill="#2F8AF5"></path>
                 </svg>
-                <p>Do‘konga qaytish</p></a><a href="https://100k.uz/" class="right">
+                <p>Do‘konga qaytish</p></a><a href="{% url 'home' %}" class="right">
                 <svg width="333" height="101" viewBox="0 0 333 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                           d="M198.122 0.910567C186.406 3.76833 173.49 18.348 169.707 32.9861C168.43 37.9246 161.389 98.3801 161.924 99.814C162.107 100.306 164.022 99.8713 166.179 98.8495L170.102 96.9899L171.124 86.6043C171.687 80.891 172.444 76.2321 172.806 76.2501C173.169 76.2669 175.701 80.0455 178.434 84.646C184.947 95.6043 190.818 101.434 194.245 100.345C197.527 99.302 206.528 90.9791 206.528 88.9882C206.528 86.7155 205.342 87.0894 201.821 90.4682C197.2 94.9036 193.941 93.2922 187.107 83.1896C184.065 78.6935 181.769 74.9071 182.004 74.7746C182.238 74.6421 185.417 72.9982 189.066 71.1218C197.411 66.8324 202.114 61.1999 202.856 54.6085C203.539 48.5382 201.383 45.8994 195.745 45.8994C190.261 45.8994 186.434 48.1968 179.793 55.4788C176.621 58.9564 174.035 61.3807 174.047 60.8687C174.128 57.4607 177.585 30.8009 178.563 26.0376C180.9 14.6582 187.516 8.28911 197.024 8.27002C202.143 8.25879 203.557 7.76584 206.467 4.97208C208.35 3.16422 209.89 1.27551 209.89 0.773574C209.89 -0.319003 202.828 -0.237031 198.122 0.910567ZM24.199 42.9226C22.2387 44.3116 17.0696 47.1862 12.7109 49.3085C6.21589 52.4728 4.78577 53.6473 4.78577 55.8212V58.4735L8.70853 56.1166C10.8661 54.8196 14.4705 52.6558 16.7177 51.3061L20.8041 48.8526L20.1518 52.7097C19.7943 54.8309 18.6242 65.0301 17.5527 75.3753L15.6036 94.1838H10.652C7.39721 94.1838 4.72301 94.953 2.85017 96.4296L0 98.6754H16.7894C32.1554 98.6754 33.7503 98.4845 35.6075 96.4296C37.6148 94.2074 37.5655 94.1838 30.7376 94.1838C26.9438 94.1838 23.8425 93.8043 23.8459 93.3417C23.8493 92.879 25.1102 81.3828 26.6479 67.7958C28.1856 54.2088 29.4431 42.461 29.4431 41.6885C29.4431 39.7347 28.3201 39.9997 24.199 42.9226ZM71.1578 43.639C60.591 48.4438 50.6698 62.4901 48.6905 75.4483C46.6954 88.5054 51.6045 98.8057 60.6325 100.503C71.3506 102.518 85.6877 92.4759 92.8641 77.9288C96.2937 70.9758 96.9091 68.5762 96.9405 62.0309C96.9875 52.511 94.7168 46.7146 89.7528 43.6828C85.013 40.7868 77.469 40.7688 71.1578 43.639ZM129.312 42.7945C123.104 44.8775 112.898 55.2407 108.759 63.6635C105.792 69.7002 105.033 72.7208 104.759 79.5615C104.361 89.5407 106.306 94.3669 112.382 98.4767C119.695 103.423 130.83 100.131 140.736 90.0909C154.11 76.5387 157.635 56.0593 148.38 45.6826C145.726 42.707 144.355 42.1354 139.189 41.8513C135.849 41.6683 131.405 42.0927 129.312 42.7945ZM237.787 48.9278C232.992 52.8995 230.32 55.9998 229.433 58.6161C228.44 61.5458 229.998 62.5811 231.461 59.9647C233.154 56.9307 237.561 52.6367 238.98 52.6367C240.544 52.6367 240.412 62.3071 238.613 79.4492C237.811 87.0939 237.391 94.5881 237.68 96.104C238.492 100.356 242.597 101.677 247.758 99.3447C252.366 97.2628 261.394 89.2768 266.286 82.9549L269.328 79.0247L268.59 88.2628C267.555 101.245 270.111 103.824 278.415 98.1712C283.007 95.0451 289.782 85.4994 288.68 83.7106C288.227 82.9762 287.489 83.3063 286.745 84.5741C284.258 88.8175 280.244 93.0609 278.719 93.0609C277.635 93.0609 277.144 91.737 277.159 88.8501C277.177 85.1681 279.89 64.7629 282.234 50.6717C283.097 45.4872 282.754 45.229 277.473 47.0739C274.282 48.1878 274.044 48.71 272.837 57.2631C271.359 67.7385 268.676 74.395 262.831 82.088C256.706 90.1515 248.545 94.4286 246.282 90.7612C245.883 90.1145 246.392 82.1441 247.414 73.0498C248.435 63.9555 249.111 54.2526 248.915 51.488C248.58 46.7741 248.34 46.4395 245.072 46.1206C242.57 45.8769 240.512 46.6697 237.787 48.9278ZM300.198 48.2788C298.586 49.5499 296.521 52.036 295.608 53.8034C293.831 57.2485 293.348 63.8657 294.875 63.8657C296.6 63.8657 300.914 58.4252 300.159 57.2013C298.799 54.997 300.715 51.5127 303.271 51.5397C304.617 51.5531 309.183 52.4537 313.419 53.5395L321.121 55.5136L312.442 66.7077C307.669 72.8645 301.406 80.681 298.525 84.0778C294.165 89.2173 288.346 97.8332 288.346 99.1481C288.346 99.4277 304.223 99.8758 321.212 100.075C325.144 100.122 330.256 96.4465 330.734 93.2294C331.123 90.6007 329.867 90.0886 327.891 92.0683C327.017 92.9441 322.561 93.0744 313.051 92.5029L299.461 91.6843L301.389 88.7232C302.45 87.095 308.649 79.2954 315.165 71.3913C321.681 63.4873 328.36 54.6445 330.006 51.7407L333 46.4608L318.064 46.2149C304.477 45.9914 302.865 46.1767 300.198 48.2788ZM80.5287 49.14C85.8794 52.4088 88.279 58.4455 88.1669 68.3572C87.9965 83.3524 80.7193 94.1838 70.8137 94.1838C62.1489 94.1838 57.0336 86.7054 56.972 73.9504C56.9383 66.7762 57.4349 64.4967 60.2794 58.7913C65.611 48.0946 73.0306 44.5586 80.5287 49.14ZM136.704 49.2231C142.346 52.6693 144.29 57.418 144.308 67.7958C144.335 83.1009 137.154 94.1838 127.21 94.1838C118.441 94.1838 113.502 86.9928 113.502 74.2244C113.502 61.8602 118.132 51.6901 125.154 48.6269C129.951 46.5349 132.522 46.6674 136.704 49.2231ZM192.871 57.4944C193.312 62.8596 191.015 66.5382 185.496 69.3039C180.804 71.6552 174.638 73.0891 173.617 72.0662C172.408 70.8546 178.831 60.4667 183.28 56.4388C189.085 51.1848 192.382 51.5486 192.871 57.4944ZM211.861 89.3891C207.807 93.555 207.736 93.7605 209.78 95.5133C210.943 96.5105 212.387 98.2094 212.989 99.2874C213.991 101.081 214.432 100.971 218.152 97.9961C220.389 96.2084 222.219 94.1221 222.219 93.3596C222.219 92.5972 220.831 90.4221 219.137 88.5256L216.055 85.0771L211.861 89.3891Z"
@@ -3382,41 +3373,57 @@
                 </svg>
             </a></header>
             <main>
-                <form><h1>Reklamachilar <br> kabinetiga kirish</h1>
-                    <div class="form-input mb-20"><label for="phone">Email orqali kirish</label><input type="tel"
-                                                                                                      placeholder="+998 (XX) XXX-XX-XX"
-                                                                                                      id="phone"
-                                                                                                      autocomplete="off"
-                                                                                                      value="+998 (88) 771-88-71">
-                    </div>
-                    <div class="form-input mb-10"><label>Shaxsiy parolingiz</label><input type="password"
-                                                                                          name="password"
-                                                                                          autocomplete="off"
-                                                                                          placeholder="Parolni kiriting">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                             class="icon">
-                            <path d="M9.34268 18.7819L7.41083 18.2642L8.1983 15.3254C7.00919 14.8874 5.91661 14.2498 4.96116 13.4534L2.80783 15.6067L1.39362 14.1925L3.54695 12.0392C2.35581 10.6103 1.52014 8.87466 1.17578 6.96818L3.14386 6.61035C3.90289 10.8126 7.57931 14.0001 12.0002 14.0001C16.4211 14.0001 20.0976 10.8126 20.8566 6.61035L22.8247 6.96818C22.4803 8.87466 21.6446 10.6103 20.4535 12.0392L22.6068 14.1925L21.1926 15.6067L19.0393 13.4534C18.0838 14.2498 16.9912 14.8874 15.8021 15.3254L16.5896 18.2642L14.6578 18.7819L13.87 15.8418C13.2623 15.9459 12.6376 16.0001 12.0002 16.0001C11.3629 16.0001 10.7381 15.9459 10.1305 15.8418L9.34268 18.7819Z"
-                                  fill="#293462"></path>
-                        </svg>
-                    </div>
-                    <div class="form-checkbox">
-                        <div class="checkbox">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"
-                                      fill="#293462"></path>
-                            </svg>
+                <form action="{% url 'send_email' %}" method="POST">
+                    {% csrf_token %}
+                    <form><h1>Reklamachilar <br> kabinetiga kirish</h1>
+                        <div class="form-input mb-20"><label for="phone">Emailingizni kiriting</label><input
+                                type="email"
+                                placeholder="example@gmail.com" required
+                                id="email"
+                                name="email"></div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="termsCheckbox">
+                            <div class="checkbox">
+                                <svg id="checkboxSvg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Unchecked state -->
+                                    <path class="unchecked"
+                                          d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"
+                                          fill="#04db0b"></path>
+                                    <!-- Checked state (hidden by default) -->
+                                    <path class="checked"
+                                          d="M20 2C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20ZM16.7071 7.29289C16.3166 6.90237 15.6834 6.90237 15.2929 7.29289L10 12.5858L8.70711 11.2929C8.31658 10.9024 7.68342 10.9024 7.29289 11.2929C6.90237 11.6834 6.90237 12.3166 7.29289 12.7071L9.29289 14.7071C9.68342 15.0976 10.3166 15.0976 10.7071 14.7071L16.7071 8.70711C17.0976 8.31658 17.0976 7.68342 16.7071 7.29289Z"
+                                          fill="#04db0b" style="display: none;"></path>
+                                </svg>
+                            </div>
+                            <label for="termsCheckbox">Men <a
+                                    href="https://api.100k.uz/offers/oferta-shartnoma-admin.pdf" class="h-underline"
+                                    target="_blank" rel="noreferrer">foydalanish shartlari</a> bilan tanishdim</label>
                         </div>
-                        <label>Men <a href="https://api.100k.uz/offers/oferta-shartnoma-admin.pdf" class="h-underline"
-                                      target="_blank" rel="noreferrer">foydalanish shartlari</a> bilan tanishdim</label>
-                    </div>
-                    <button type="submit" class="primary" disabled="">Tizimga kirish</button>
-                    <button type="button">SMS kod orqali kirish</button>
+
+                        <script>
+                            const checkbox = document.getElementById('termsCheckbox');
+                            const uncheckedPath = document.querySelector('.unchecked');
+                            const checkedPath = document.querySelector('.checked');
+
+                            checkbox.addEventListener('change', function () {
+                                if (this.checked) {
+                                    uncheckedPath.style.display = 'none';
+                                    checkedPath.style.display = 'block';
+                                } else {
+                                    uncheckedPath.style.display = 'block';
+                                    checkedPath.style.display = 'none';
+                                }
+                            });
+                        </script>
+                        <button href="{% url 'check_email' %}" type="submit" class="primary">SMS kodni olish</button>
+                        <button href="{% url 'login_w_passwd' %}" type="button">Shaxsiy parol orqali kirish</button>
+                    </form>
+                    <div class="footer">
+                        <div class="footer__links"><a href="https://100k.uz/pages/privacy-policy">Maxfiylik siyosati</a><a
+                                href="https://100k.uz/pages/privacy-policy">Foydalanish shartlari</a></div>
+                        <p>Copyright © 2020 Barcha huquqlar himoyalangan</p></div>
                 </form>
-                <div class="footer">
-                    <div class="footer__links"><a href="https://100k.uz/pages/privacy-policy">Maxfiylik siyosati</a><a
-                            href="https://100k.uz/pages/privacy-policy">Foydalanish shartlari</a></div>
-                    <p>Copyright © 2020 Barcha huquqlar himoyalangan</p></div>
             </main>
         </div>
     </div>
@@ -3426,6 +3433,6 @@
 <div id="select-menus"></div>
 <input id="copy" style="opacity:0;height:0;position:absolute;z-index:-1">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CString.prototype.replaceAll%2CSymbol.replace"></script>
-<script src="{% static 'login_with_passwd_files/script.js' %}"></script>
+<script src="{% static 'email_files/script.js' %}"></script>
 </body>
 </html>

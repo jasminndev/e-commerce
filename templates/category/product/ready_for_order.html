@@ -253,101 +253,100 @@
 {#{% endblock %}#}
 
 
-{% extends 'auth/block/base.html' %}
+{% extends 'auth/block/../../../block/base.html' %}
 {% load humanize %}
-
 {% block base %}
-<main class="client-template">
-    <section class="main">
-        <div class="container">
-            <div class="content p-4 text-center">
-                <div class="text-center1">
-                    <img style="width: 50px" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Accept.svg" alt="">
-                </div>
-                <br>
+    <main class="client-template">
+        <section class="main">
+            <div class="container">
+                <div class="content p-4 text-center">
+                    <div class="text-center1">
+                        <img style="width: 50px" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Accept.svg"
+                             alt="">
+                    </div>
+                    <br>
 
-                <h4> Arizangiz qabul qilindi! </h4>
-                <p>Batafsil ma'lumot uchun operator yaqin vaqt ichida siz bilan aloqaga chiqadi.</p>
-                <p>Iltimos, telefoningiz yoqilgan holda bo'lsin!</p>
-                <br>
+                    <h4> Arizangiz qabul qilindi! </h4>
+                    <p>Batafsil ma'lumot uchun operator yaqin vaqt ichida siz bilan aloqaga chiqadi.</p>
+                    <p>Iltimos, telefoningiz yoqilgan holda bo'lsin!</p>
+                    <br>
 
-                <div id="checkoutForm">
-                    <table class="table" style="margin-bottom: 0px">
-                        <thead>
-                        <tr class="text-left">
-                            <th>Mahsulot</th>
-                            <th>Summa</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="text-left">
-                            <th style="font-size: 18px; color: green">
-                                Yengil va zamonaviy oq krossovkalar erkaklar uchun, 39. Soni: 1 ta
-                            </th>
-                            <td style="font-size: 18px; color: green">
-                                {{ product.price|intcomma }} so'm
-                            </td>
-                        </tr>
+                    <div id="checkoutForm">
+                        <table class="table" style="margin-bottom: 0px">
+                            <thead>
+                            <tr class="text-left">
+                                <th>Mahsulot</th>
+                                <th>Summa</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-left">
+                                <th style="font-size: 18px; color: green">
+                                    Yengil va zamonaviy oq krossovkalar erkaklar uchun, 39. Soni: 1 ta
+                                </th>
+                                <td style="font-size: 18px; color: green">
+                                    {{ product.price|intcomma }} so'm
+                                </td>
+                            </tr>
 
-                        <tr class="text-left" style="font-size: 18px; font-weight: bold">
-                            <td>Yetkazib berish summasi:</td>
-                            <td>{{ delivery.price|intcomma }} so'm</td>
-                        </tr>
+                            <tr class="text-left" style="font-size: 18px; font-weight: bold">
+                                <td>Yetkazib berish summasi:</td>
+                                <td>{{ delivery.price|intcomma }} so'm</td>
+                            </tr>
 
-                        <tr class="text-center">
-                            <td colspan="3">
-                                <strong style="font-size: 20px; color: red">
-                                    {% with total=product.price|add:delivery.price %}
+                            <tr class="text-center">
+                                <td colspan="3">
+                                    <strong style="font-size: 20px; color: red">
                                         Jami <br>
                                         {{ total|intcomma }} so'm
-                                    {% endwith %}
-                                </strong>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="related-products">
-                <div class="row">
-                    {% for product in products %}
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/9bRdlWmoee3pJYEfYwkyReQEmz74pIQ4y30OJ2mb.jpg.webp"
-                                     alt="Robot kamera Holdor">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    {{ product.name }}
-                                </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold">{{ product.price|intcomma }}</strong>
-                                    <span class="small">so'm</span>
-                                </div>
-                                <br>
-                                <form method="POST" action="https://100k.uz/add-item-to-order/9576210">
-                                    <input type="hidden" name="_token" value="yS7nEraPZ80EsAZU4qB2nZne11d6BQ6IBl5svIDP">
-                                    <input type="hidden" name="product_id" value="2430">
-                                    <input type="hidden" name="product_item_id" value="2536">
-                                    <button type="submit"
-                                            class="productsList__btn btn btn-primary sk-btn sk-btn--primary sk-btn--block sk-btn--lg">
-                                        Buyurtma qilish
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                                    </strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
-            <br>
-        </div>
-    </section>
 
-    <style>
-    </style>
-</main>
+                <div class="related-products">
+                    <div class="row">
+                        {% for product in products %}
+                            <div class="col-md-3 col-sm-4 col-6">
+                                <div class="productsList--item">
+                                    <div class="productsList--item--image">
+                                        <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/9bRdlWmoee3pJYEfYwkyReQEmz74pIQ4y30OJ2mb.jpg.webp"
+                                             alt="Robot kamera Holdor">
+                                    </div>
+                                    <div class="productsList--item--info">
+                                        <div class="productsList--item--title">
+                                            {{ product.name }}
+                                        </div>
+                                        <div class="productsList--item--price">
+                                            <strong class="font-weight-bold">{{ product.price|intcomma }}</strong>
+                                            <span class="small">so'm</span>
+                                        </div>
+                                        <br>
+                                        <form method="POST" action="https://100k.uz/add-item-to-order/9576210">
+                                            <input type="hidden" name="_token"
+                                                   value="yS7nEraPZ80EsAZU4qB2nZne11d6BQ6IBl5svIDP">
+                                            <input type="hidden" name="product_id" value="2430">
+                                            <input type="hidden" name="product_item_id" value="2536">
+                                            <button type="submit"
+                                                    class="productsList__btn btn btn-primary sk-btn sk-btn--primary sk-btn--block sk-btn--lg">
+                                                Buyurtma qilish
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+            </div>
+        </section>
+
+        <style>
+        </style>
+    </main>
 {% endblock %}

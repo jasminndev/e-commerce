@@ -1,0 +1,168 @@
+{% extends '100k.html' %}
+{% block base %}
+{% load humanize %}
+
+<style>
+    #productPrice {
+        font-size: 26px;
+    }
+
+    .product-gallery {
+        text-align: center;
+    }
+
+    .product-media {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        border-radius: 10px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .owl-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .owl-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #ccc;
+        cursor: pointer;
+        border: none;
+    }
+
+    .owl-dot.active {
+        background-color: #a7a7a7;
+    }
+</style>
+
+<main class="client-template">
+    <section class="main">
+        <div id="notifications-container"></div>
+        <div class="container py-3">
+
+            <!-- Product header -->
+            <div class="row align-items-center">
+                <div class="col my-3 pr-3">
+                    <h1 class="h4 font-weight-bold mb-0">{{ product.name }}</h1>
+                </div>
+                <div class="col-auto my-3 text-right">
+                    <strong data-price="{{ product.discount_price|floatformat:'0'|intcomma }}" id="productPrice" class="position-price1">
+                        {{ product.discount_price|floatformat:"0"|intcomma }} so'm
+                    </strong>
+                    <div class="text-warning">
+                        {% for _ in '12345' %}<i class="fa fa-star"></i>{% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product media and form -->
+            <div class="row">
+                <div class="col-md-6 mb-4 text-center main-image">
+                    {% with product.images.all.0 as first_image %}
+                        {% if first_image.video %}
+                            <video id="mainProductVideo" class="product-media" src="{{ first_image.video.url }}" controls muted autoplay loop></video>
+                            <img id="mainProductImage" class="product-media" src="" style="display:none;" />
+                        {% else %}
+                            <video id="mainProductVideo" class="product-media" style="display:none;" muted autoplay loop></video>
+                            <img id="mainProductImage" class="product-media" src="{{ first_image.image_file.url }}" />
+                        {% endif %}
+                    {% endwith %}
+
+                    <div class="owl-dots">
+                        {% for image in product.images.all %}
+                            {% if image.video %}
+                                <button class="owl-dot {% if forloop.first %}active{% endif %}" onclick="changeMainMedia('{{ image.video.url }}', true, this)"></button>
+                            {% else %}
+                                <button class="owl-dot {% if forloop.first %}active{% endif %}" onclick="changeMainMedia('{{ image.image_file.url }}', false, this)"></button>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-md-6 pl-md-4 mb-4">
+                    <form id="orderForm" action="{% url 'order' %}" method="POST" class="orderForm sk-form d-flex flex-column justify-content-between" style="min-height:100%;">
+                        {% csrf_token %}
+                        <div>
+                            <h2 class="h3 font-weight-bold mb-4"><a href="#orderFormSection">Buyurtma berish</a></h2>
+                            <p class="mb-3">Mahsulot narxi: <strong class="pricetag position-price2">{{ product.discount_price|floatformat:"0"|intcomma }} so'm</strong></p>
+                            <div class="alert alert-info">
+                                <strong>Yetkazib berish narxi: 30,000 so'm</strong>
+                            </div>
+                        </div>
+
+                        <div class="my-3">
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <input type="hidden" name="store_id" value="{{ product.store_id }}">
+                            <input type="hidden" name="product_item_id" value="{{ product.id }}">
+                            <input type="hidden" name="stream_id" value="">
+
+                            <div class="form-group">
+                                <input class="form-control needclear" name="client_full_name" placeholder="Ismingiz" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="my-phone-mask form-control needclear" name="customer_phone" placeholder="Telefon raqamingiz" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <select required class="form-control" name="region_id">
+                                    <option value="" selected>Hududni tanlang ⬇</option>
+                                    {% for region in regions %}
+                                        <option value="{{ region.id }}">{{ region.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <button type="submit" class="sk-btn sk-btn--primary sk-btn--block sk-btn--lg">Buyurtma berish</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Product description -->
+            <div class="container mt-4">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#productDescription" class="nav-link active" data-toggle="tab">Batafsil ma'lumot</a>
+                    </li>
+                </ul>
+                <div class="tab-content py-3">
+                    <div class="tab-pane fade show active" id="productDescription">
+                        <div>{{ product.description|safe }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function changeMainMedia(url, isVideo, dotBtn) {
+            const video = document.getElementById("mainProductVideo");
+            const image = document.getElementById("mainProductImage");
+
+            if (isVideo) {
+                video.src = url;
+                video.style.display = "block";
+                image.style.display = "none";
+            } else {
+                image.src = url;
+                image.style.display = "block";
+                video.style.display = "none";
+            }
+
+            document.querySelectorAll(".owl-dot").forEach(dot => dot.classList.remove("active"));
+            dotBtn.classList.add("active");
+        }
+    </script>
+</main>
+{% endblock %}
