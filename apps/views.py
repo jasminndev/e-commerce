@@ -39,7 +39,14 @@ def category_products(request):
         except Category.DoesNotExist:
             products = []
 
-    return render(request, 'category/category_products.html', {'products': products, 'category': category})
+    categories = Category.objects.all()
+
+    return render(request, 'category/category_products.html', {
+        'products': products,
+        'category': category,
+        'categories': categories,
+        'active_category_id': category.pk if category else None
+    })
 
 
 class ProductDetail(DetailView):
@@ -153,8 +160,6 @@ def checkout_view(request, product_id, delivery_id):
 def explore_category(request, pk):
     categories = Category.objects.all()
     return render(request, 'category/category_products.html', {
-        'categories' : categories,
-        'active_category_id' : pk
+        'categories': categories,
+        'active_category_id': pk
     })
-
-

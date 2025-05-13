@@ -72,7 +72,7 @@
                             <img id="mainProductImage" class="product-media" src="" style="display:none;" />
                         {% else %}
                             <video id="mainProductVideo" class="product-media" style="display:none;" muted autoplay loop></video>
-                            <img id="mainProductImage" class="product-media" src="{{ first_image.image_file.url }}" />
+                            <img id="mainProductImage" class="product-media" src="{{ first_image.image.url }}" />
                         {% endif %}
                     {% endwith %}
 
@@ -81,7 +81,7 @@
                             {% if image.video %}
                                 <button class="owl-dot {% if forloop.first %}active{% endif %}" onclick="changeMainMedia('{{ image.video.url }}', true, this)"></button>
                             {% else %}
-                                <button class="owl-dot {% if forloop.first %}active{% endif %}" onclick="changeMainMedia('{{ image.image_file.url }}', false, this)"></button>
+                                <button class="owl-dot {% if forloop.first %}active{% endif %}" onclick="changeMainMedia('{{ image.image.url }}', false, this)"></button>
                             {% endif %}
                         {% endfor %}
                     </div>

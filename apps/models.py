@@ -23,7 +23,6 @@ class Product(Model):
     price = DecimalField(max_digits=10, decimal_places=0)
     discount = PositiveIntegerField()
     quantity = PositiveIntegerField()
-    main_image = ImageField(upload_to='product/%Y/%m/%d/')
     description = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
     manual = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
     created_at = DateTimeField(auto_now_add=True)
@@ -39,7 +38,8 @@ class Product(Model):
 
 
 class ProductImage(Model):
-    image_file = ImageField(upload_to='product/%Y/%m/%d/', null=True, blank=True)
+    main_image = ImageField(upload_to='product/%Y/%m/%d/')
+    image = ImageField(upload_to='product/%Y/%m/%d/', null=True, blank=True)
     video = FileField(upload_to='products', null=True, blank=True)
     product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='images')
 

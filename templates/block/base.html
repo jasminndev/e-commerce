@@ -95,7 +95,7 @@
                                     <div class="productsList--item--image">
                                         {% with product.images.all.first as first_image %}
                                             <div class="text-center">
-                                                <img src="{{ first_image.image_file.url }}"
+                                                <img src="{{ first_image.image.url }}"
                                                      width="200" height="200"
                                                      alt="{{ product.name }}">
                                             </div>
@@ -144,7 +144,7 @@
                                     <div class="productsList--item--image">
                                         {% with product.images.all.first as first_image %}
                                             <div class="text-center">
-                                                <img src="{{ first_image.image_file.url }}"
+                                                <img src="{{ first_image.image.url }}"
                                                      width="200" height="200"
                                                      alt="{{ product.name }}">
                                             </div>
