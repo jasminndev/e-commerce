@@ -59,9 +59,9 @@
                             {% for category in categories %}
                                 <div class="category-item">
                                     <a class="siteCategories--item"
-                                       href="{% url 'category_products' %}?category={{ category.name }}">
+                                       href="{% url 'category_products' %}?category={{ category.slug }}">
                                         <div class="category-icon">
-                                            <img src="{{ category.icon }}" alt="{{ category.name }}" width="100"
+                                            <img src="{{ category.icon }}" alt="{{ category.slug }}" width="100"
                                                  height="100">
                                             <br>
                                         </div>

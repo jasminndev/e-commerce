@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.forms import Form, CharField, ModelForm, PasswordInput, EmailField
+from django.forms import Form, CharField, ModelForm, EmailField
 
 from apps.models import User
 

@@ -32,7 +32,7 @@
                 </svg>
             </a></header>
             <main>
-                <form action="{% url 'send_email' %}" method="POST">
+                <form action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
                     <form><h1>Reklamachilar <br> kabinetiga kirish</h1>
                         <div class="form-input mb-20"><label for="email">Emailingizni kiriting</label><input

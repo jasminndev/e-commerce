@@ -1,0 +1,51 @@
+[
+  {
+    "model": "apps.attribute",
+    "pk": 1,
+    "fields": {
+      "name": "Yashil rang"
+    }
+  },
+  {
+    "model": "apps.attribute",
+    "pk": 2,
+    "fields": {
+      "name": "20 razmer"
+    }
+  },
+  {
+    "model": "apps.attribute",
+    "pk": 3,
+    "fields": {
+      "name": "19 razmer"
+    }
+  },
+  {
+    "model": "apps.attribute",
+    "pk": 4,
+    "fields": {
+      "name": "21 razmer"
+    }
+  },
+  {
+    "model": "apps.attribute",
+    "pk": 5,
+    "fields": {
+      "name": "17 razmer"
+    }
+  },
+  {
+    "model": "apps.attribute",
+    "pk": 6,
+    "fields": {
+      "name": "18 razmer"
+    }
+  },
+  {
+    "model": "apps.attribute",
+    "pk": 7,
+    "fields": {
+      "name": "16 razmer"
+    }
+  }
+]

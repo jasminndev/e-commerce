@@ -1,0 +1,19 @@
+[
+  {
+    "model": "apps.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$uTzHXK9YPgPrpW2ROFrmIQ$3Uw627tAC+Pd0Joj3HHNj3B52lgxSREuAREbIs9xySY=",
+      "last_login": "2025-05-08T05:34:51.844Z",
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-05-01T05:22:05.456Z",
+      "email": "admin@gmail.com",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
