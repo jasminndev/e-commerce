@@ -43,14 +43,6 @@ class User(AbstractUser):
     objects = CustomerUser()
 
 
-class Stream(Model):
-    name = CharField(max_length=255)
-    link = CharField(max_length=255)
-    is_established = BooleanField(default=False)
-    product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='streams')
-    user = ForeignKey('apps.User', on_delete=CASCADE, related_name='streams')
-
-
 class Transaction(Model):
     class StatusType(TextChoices):
         PENDING = 'pending', 'Pending',

@@ -1,6 +1,60 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown__btn {
+        cursor: pointer;
+    }
+
+    .dropdown__menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        padding: 10px 0;
+        z-index: 1;
+        border-radius: 8px;
+    }
+
+    .dropdown__menu.show {
+        display: block;
+    }
+
+    .dropdown__item {
+        display: block;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: #333;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .dropdown__item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dashboard-icon svg {
+        fill: #3b3b3b; /* Default kulrang */
+        transition: fill 0.3s ease;
+    }
+
+    a.active .dashboard-icon svg {
+        fill: red;
+        font-weight: bold; /* Active bo‘lsa qizil */
+    }
+
+
+</style>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" href="https://admin.100k.uz/favicon.ico">
@@ -33,14 +87,22 @@
                             </svg>
                         </a></div>
                         <ul class="navigation">
-                            <li><a aria-current="page" class="active" href="{% url 'dashboard' %}">
+                            <li><a aria-current="page"
+                                    {% if request.path == '/dashboard/' %}
+                                    class="active"
+                                    {% endif %}
+                                   href="{% url 'dashboard' %}">
                                 <div class="dashboard-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM256 416c35.3 0 64-28.7 64-64c0-17.4-6.9-33.1-18.1-44.6L366 161.7c5.3-12.1-.2-26.3-12.3-31.6s-26.3 .2-31.6 12.3L257.9 288c-.6 0-1.3 0-1.9 0c-35.3 0-64 28.7-64 64s28.7 64 64 64zM176 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM96 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm352-32a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path>
                                     </svg>
                                 </div>
                                 <p>Dashboard</p><span> </span></a></li>
-                            <li><a class="" href="{% url 'market' %}">
+                            <li><a    {% if request.path == '/market/' %}
+                                class="active"
+                            {% endif %}
+                                href="{% url 'market' %}">
+
                                 <div class="dashboard-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path d="M531.6 103.8L474.3 13.1C469.2 5 460.1 0 450.4 0H93.6C83.9 0 74.8 5 69.7 13.1L12.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM483.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H112V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H432c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"></path>
@@ -70,8 +132,8 @@
                                 <p>To'lov</p><span> </span></a></li>
                         </ul>
                         <div class="navbar-menu" style="display: flex;">
-                            <div class="dropdown ">
-                                <div class="dropdown__btn">
+                            <div class="dropdown" id="dropdown">
+                                <div class="dropdown__btn" id="dropdownBtn">
                                     <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                                          style="height: 35px; width: 35px;">
                                         <path fill-rule="evenodd"
@@ -79,13 +141,10 @@
                                               clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <ul class="dropdown__menu">
-                                    <div>
-                                        <li><a class="dropdown__item" href="https://admin.100k.uz/profile">Profil</a>
-                                        </li>
-                                    </div>
+                                <ul class="dropdown__menu" id="dropdownMenu">
+                                    <li><a class="dropdown__item" href="{% url 'profile' %}">Profil</a></li>
                                     <li>
-                                        <button type="button" class="dropdown__item">Chiqish</button>
+                                        <a class="dropdown__item" href="{% url 'logout' %}">Chiqish</a>
                                     </li>
                                 </ul>
                             </div>
@@ -94,35 +153,41 @@
                 </div>
                 <div class="navbar__mobile">
                     <div class="navbar__mobile-content">
-                        <li><a aria-current="page" class="active" href="https://admin.100k.uz/">
+                        <li><a aria-current="page"
+                               class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"
+                               href="{% url 'dashboard' %}">
                             <div class="dashboard-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                     <path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM256 416c35.3 0 64-28.7 64-64c0-17.4-6.9-33.1-18.1-44.6L366 161.7c5.3-12.1-.2-26.3-12.3-31.6s-26.3 .2-31.6 12.3L257.9 288c-.6 0-1.3 0-1.9 0c-35.3 0-64 28.7-64 64s28.7 64 64 64zM176 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM96 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm352-32a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path>
                                 </svg>
                             </div>
                             <p>Dashboard</p></a></li>
-                        <li><a class="" href="https://admin.100k.uz/market">
+                        <li><a class="{% if request.resolver_match.url_name == 'market' %}active{% endif %}"
+                               href="{% url 'market' %}">
                             <div class="dashboard-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                     <path d="M531.6 103.8L474.3 13.1C469.2 5 460.1 0 450.4 0H93.6C83.9 0 74.8 5 69.7 13.1L12.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM483.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H112V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H432c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"></path>
                                 </svg>
                             </div>
                             <p>Market</p></a></li>
-                        <li><a class="" href="https://admin.100k.uz/stream">
+                        <li><a class="{% if request.resolver_match.url_name == 'stream' %}active{% endif %}"
+                               href="{% url 'stream' %}">
                             <div class="dashboard-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                                     <path d="M563.2 267.3c56.2-56.2 56.2-147.4 0-203.6S415.8 7.4 359.6 63.7L348.3 75l45.3 45.3 11.3-11.3c31.2-31.2 81.9-31.2 113.1 0s31.2 81.9 0 113.1L404.8 335.2c-31.2 31.2-81.9 31.2-113.1 0c-25.6-25.6-30.3-64.3-13.8-94.6c1.8-3.4 3.9-6.7 6.3-9.8l-51.2-38.4c-4.3 5.7-8.1 11.6-11.4 17.8c-29.5 54.6-21.3 124.2 24.9 170.3c56.2 56.2 147.4 56.2 203.6 0L563.2 267.3zM42.8 244.7c-56.2 56.2-56.2 147.4 0 203.6s147.4 56.2 203.6 0L257.7 437l-45.3-45.3-11.3 11.3c-31.2 31.2-81.9 31.2-113.1 0s-31.2-81.9 0-113.1L201.2 176.8c31.2-31.2 81.9-31.2 113.1 0c25.6 25.6 30.3 64.3 13.8 94.6c-1.8 3.4-3.9 6.7-6.3 9.8l51.2 38.4c4.3-5.7 8.1-11.6 11.4-17.8c29.5-54.6 21.3-124.2-24.9-170.3c-56.2-56.2-147.4-56.2-203.6 0L42.8 244.7z"></path>
                                 </svg>
                             </div>
                             <p>Oqim</p></a></li>
-                        <li><a class="" href="https://admin.100k.uz/statistic">
+                        <li><a class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}"
+                               href="{% url 'statistics' %}">
                             <div class="dashboard-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                     <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zM439 279c15.1 15.1 41 4.4 41-17V152c0-13.3-10.7-24-24-24H345.9c-21.4 0-32.1 25.9-17 41l32.4 32.4L304 258.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0l-80 80c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L208 253.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0l80-80L439 279z"></path>
                                 </svg>
                             </div>
                             <p>Statistika</p></a></li>
-                        <li><a class="" href="https://admin.100k.uz/payment">
+                        <li><a class="{% if request.resolver_match.url_name == 'payment' %}active{% endif %}"
+                               href="{% url 'payment' %}">
                             <div class="dashboard-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                     <path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"></path>
@@ -132,89 +197,9 @@
                     </div>
                 </div>
             </div>
-            <div class="page-wrapper">
-                <main class="page-content">
-                    <div class="dashboard">
-                        <div class="container">
-                            <div class="top">
-                                <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                     class="profile-img" style="height: 35px; width: 35px;">
-                                    <path fill-rule="evenodd"
-                                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-                                          clip-rule="evenodd"></path>
-                                </svg>
-                                <p class="">Jasmina </p>
-                                <p class="subtitle" style="padding-top: 10px;">Saytda "2025-04-17" chi sanadan </p>
-                                <p class="subtitle" style="padding-top: 0px; color: rgb(221, 221, 221);">Biz bilan
-                                    bog'lanish: <a href="https://t.me/stok_support_bot"
-                                                   style="color: rgb(244, 67, 54);">@stok_support_bot</a></p></div>
-                            <div class="balance-card"><p>Hisobingizda</p>
-                                <h2>0 bonus</h2>
-                                <div class="space-b"><p>Tahminiy balans: 0 bonus</p><h4>100k</h4></div>
-                            </div>
-                            <div class="statistics"></div>
-                            <div class="category__cards"><a
-                                    href="https://telegra.ph/100kuz-Adminlar-uchun-qollanma-11-15"
-                                    class="category__card" target="_blank" rel="noreferrer">
-                                <div class="category__card-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
-                                <p class="category__card-text">Dastur haqida</p></a><a class="category__card"
-                                                                                       href="https://admin.100k.uz/request">
-                                <div class="category__card-icon"><i class="fa-solid fa-list-ul"></i></div>
-                                <p class="category__card-text">So'rovlar (0)</p></a><a class="category__card"
-                                                                                       href="https://admin.100k.uz/balance-history">
-                                <div class="category__card-icon"><i class="fa-solid fa-money-bill-1"></i></div>
-                                <p class="category__card-text">Balans tarixi</p></a><a class="category__card"
-                                                                                       href="https://admin.100k.uz/penalty">
-                                <div class="category__card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                                <p class="category__card-text">Jarimalar</p></a><a class="category__card"
-                                                                                   href="https://admin.100k.uz/diagram">
-                                <div class="category__card-icon"><i class="fa-solid fa-chart-simple"></i></div>
-                                <p class="category__card-text">Diagrammalar</p></a><a class="category__card"
-                                                                                      href="https://admin.100k.uz/charity">
-                                <div class="category__card-icon"><i class="fa-solid fa-box"></i></div>
-                                <p class="category__card-text">Hayriya qutisi</p></a></div>
-                            <div class="dashboard-news">
-                                <div class="news__item p-10 mb-10"><img
-                                        src="{% static 'dashboard_files/RuSSSzg5mdqoBDeqiF1H8TO6jedSkZRPAC2j8soG.png' %}"
-                                        alt="">
-                                    <div class="news__content"><h2 class="title">Bepul yetqazish funksiyasi butunlay
-                                        saytdan olib tashlanadi.</h2>
-                                        <div class="subtitle"><p>Hurmatli adminlar, 25 iyul kuniga qadar “<strong>yetqazib
-                                            berish bepul</strong>” deb olingan oqimlarni yangilashingizni soraymiz. Aks
-                                            holda narxlarda xatoliklar kuzatilishi mumkin.</p></div>
-                                        <p class="release_date caption-l"><span class="date">17.06.2023</span><span
-                                                class="time">19:22</span></p></div>
-                                </div>
-                                <div class="news__item p-10 mb-10"><img
-                                        src="{% static 'dashboard_files/U3hyGBUZt7GqFCA1uZpVuYFBrHDENHCYY9zURV8Z.png' %}"
-                                        alt="">
-                                    <div class="news__content"><h2 class="title">Mahsulotlarni zaxirasi boyicha malumot
-                                        olish usuli</h2>
-                                        <div class="subtitle"><p>Mahsulotlarni zaxirasini bilish uchun 1 o'rinda
-                                            mahsulot sotuvchi bilan boglaning.<br>Buning uchun market bolimiga kirib
-                                            kerakli mahsulotni toping va yuqoridagi <strong>skrenda</strong>
-                                            korsatilgandek sotuvchi nomi ustiga bosing.&nbsp;<br>Sotuvchi javob bermagan
-                                            holda 100k chat gruhidagi adminlarga murojat etishingiz mumkin.</p></div>
-                                        <p class="release_date caption-l"><span class="date">09.07.2023</span><span
-                                                class="time">03:09</span></p></div>
-                                </div>
-                                <div class="news__item p-10 mb-10"><img
-                                        src="{% static 'dashboard_files/0omJTqjstiPnhsRAWOgDIfK5WdpUoyFJcUgA8KUx.png' %}"
-                                        alt="">
-                                    <div class="news__content"><h2 class="title">Mahsulotlarga admin hisobidan chegirma
-                                        berish funksiyasi butunlay olib tashlanadi.</h2>
-                                        <div class="subtitle"><p>Admin hisobidan chegirma berish funksiyasi orqali kelib
-                                            chiqayotgan tushunmovchiliklar va arxiv sorovlar soni kopayib borgani
-                                            tufayli <strong>Admin hisobidan chegirma &nbsp;</strong>funksiyasi saytdan
-                                            butunlay olib tashlanadi.&nbsp;</p></div>
-                                        <p class="release_date caption-l"><span class="date">18.10.2023</span><span
-                                                class="time">17:15</span></p></div>
-                                </div>
-                                <a class="show-all" href="https://admin.100k.uz/news">Barchasini ko‘rish</a></div>
-                        </div>
-                    </div>
-                </main>
-            </div>
+            {% block account_base %}
+
+            {% endblock %}
         </div>
     </div>
     <div style="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;"></div>
@@ -243,31 +228,50 @@
                             <div class="btn"> Yangiliklar</div>
                             <div class="end mobile-menu">
                                 <div class="profile">
-                                    <div class="dropdown ">
-                                        <div class="dropdown__btn">
+                                    <div class="dropdown" id="dropdown">
+                                        <div class="dropdown__btn" id="dropdownBtn">
                                             <svg fill="currentColor" viewBox="0 0 20 20"
-                                                 xmlns="http://www.w3.org/2000/svg" style="height: 35px; width: 35px;">
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                                 style="height: 35px; width: 35px;">
                                                 <path fill-rule="evenodd"
                                                       d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
                                                       clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
-                                        <ul class="dropdown__menu">
-                                            <div>
-                                                <li><a class="dropdown__item" href="https://admin.100k.uz/profile">Profil</a>
-                                                </li>
-                                            </div>
+                                        <ul class="dropdown__menu" id="dropdownMenu">
+                                            <li><a class="dropdown__item" href="{% url 'profile' %}">Profil</a></li>
                                             <li>
-                                                <button type="button" class="dropdown__item">Chiqish</button>
+                                                <a class="dropdown__item" href="{% url 'logout' %}">Chiqish</a>
                                             </li>
                                         </ul>
                                     </div>
+                                    <script>
+                                        const dropdownBtn = document.getElementById('dropdownBtn');
+                                        const dropdownMenu = document.getElementById('dropdownMenu');
+
+                                        dropdownBtn.addEventListener('click', () => {
+                                            dropdownMenu.classList.toggle('show');
+                                        });
+
+                                        // Optional: Close dropdown when clicking outside
+                                        document.addEventListener('click', (event) => {
+                                            if (!document.getElementById('dropdown').contains(event.target)) {
+                                                dropdownMenu.classList.remove('show');
+                                            }
+                                        });
+
+                                        function logout() {
+                                            alert("Siz tizimdan chiqmoqchisiz.");
+                                            // logout qilish uchun kerakli funksiyani bu yerga yozing, masalan:
+                                            // window.location.href = '/logout';
+                                        }
+                                    </script>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="spinner">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100px"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100px"
                              height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"
                              style="fill: rgb(48, 104, 131);">
                             <g transform="rotate(0 50 50)">

@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView
 
-from apps.models import Category, Product, Region
+from apps.forms import StreamModelForm
+from apps.models import Category, Product, Region, Stream
 
 
 class ProductDetail(DetailView):
@@ -28,3 +28,19 @@ class ProductListView(ListView):
             data['products'] = data.get('products').filter(category__slug=slug)
         data['categories'] = Category.objects.all()
         return data
+
+class StreamCreateView(CreateView):
+    queryset = Stream.objects.all()
+    form_class = StreamModelForm
+    template_name = 'account/market.html'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+
+
+
+

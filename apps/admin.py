@@ -70,7 +70,7 @@ class DistrictAdmin(admin.ModelAdmin):
 
 @admin.register(Stream)
 class StreamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_established', 'product', 'link')
+    list_display = ('name', 'product')
 
 
 @admin.register(Transaction)

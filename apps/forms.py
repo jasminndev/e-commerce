@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.forms import Form, CharField, ModelForm, EmailField
 
-from apps.models import User
+from apps.models import User, Stream, Product
 
 
 class EmailForm(Form):
@@ -31,3 +31,18 @@ class RegisterModelForm(ModelForm):
         if commit:
             user.save()
         return user
+
+
+class StreamModelForm(ModelForm):
+    class Meta:
+        model = Stream
+        fields = 'name', 'product', 'owner', 'visit_count',
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['product'].queryset = Product.objects.all()
+
+    def clean_discount_price(self):
+        product_id = self.data.get('product')
+        product = Product.objects.filter(id=product_id).first()
+        return product
