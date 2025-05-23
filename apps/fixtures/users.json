@@ -1,0 +1,59 @@
+[
+  {
+    "model": "apps.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$uTzHXK9YPgPrpW2ROFrmIQ$3Uw627tAC+Pd0Joj3HHNj3B52lgxSREuAREbIs9xySY=",
+      "last_login": "2025-05-22T09:58:38.284Z",
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-05-01T05:22:05.456Z",
+      "email": "admin@gmail.com",
+      "image": "",
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "apps.user",
+    "pk": 7,
+    "fields": {
+      "password": "!MkqFumCNIfHJg9hoow3rs5rqM87emEYmOwRwBtJP",
+      "last_login": "2025-05-21T15:06:27.736Z",
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-05-21T14:30:44.737Z",
+      "email": "muvvahhida@gmail.com",
+      "image": "",
+      "phone_number": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "apps.user",
+    "pk": 8,
+    "fields": {
+      "password": "!XPh4zUsuMjWiHex9RlNZLcGaEx6bjA6Bzib7n079",
+      "last_login": "2025-05-21T15:07:06.055Z",
+      "is_superuser": false,
+      "first_name": "Jasmina",
+      "last_name": "Ochildiyeva",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-05-21T15:07:06.046Z",
+      "email": "ochildiyevajasmina@gmail.com",
+      "image": "",
+      "phone_number": "+998(88) 771-88-71",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

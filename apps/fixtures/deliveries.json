@@ -1,0 +1,1 @@
+[{"model": "apps.delivery", "pk": 1, "fields": {"name": "Express", "price": "30000.00", "description": "", "delivery_time": "2025-12-01T08:00:00Z", "phone_number": "12312938192"}}]

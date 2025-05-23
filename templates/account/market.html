@@ -1,4 +1,4 @@
-{% extends 'account-base.html' %}
+{% extends 'base/account-base.html' %}
 {% block account_base %}
     {% load static %}
     {% load humanize %}
@@ -240,7 +240,7 @@
                                                         <p class="ml-2" style="font-size: 12px;">Reklama</p>
                                                         образование
                                                     <li>To'lov:
-                                                        <strong>{{ product.bonus_price|floatformat:'0'|intcomma }}
+                                                        <strong>{{ product.bonus_price|default:'0'|intcomma }}
                                                             so'm</strong></li>
                                                     <li><a href="https://t.me/jonik_admin" target="_blank"
                                                            rel="noreferrer"
@@ -332,6 +332,7 @@
                                 <input name="name" type="text" class="form-control" autocomplete="off"
                                        maxlength="255">
                                 <input name="product" type="hidden" id="hidden_product">
+                                <input name="owner" type="hidden" id="hidden_owner" value="{{ request.user.pk }}">
                                 <p class="form__error"></p>
                             </div>
                             <br>
@@ -355,7 +356,7 @@
             </div>
         </div>
     </div>
-    <div class="modal close copy-stream">
+    <div class="modal modal-create-stream close copy-stream">
         <div class="modal__overlay"></div>
         <div class="modal__content" style="max-width: 500px;">
             <div class="modal__box">
@@ -462,24 +463,19 @@
             const modalTitle = createStreamModal.querySelector('.modal__title');
             const hiddenProductInput = document.getElementById('hidden_product');
 
-            // Modal ochish
             function openModal(event) {
                 const button = event.currentTarget;
                 const productName = button.getAttribute('data-product-name');
                 const productId = button.getAttribute('data-product-id');
 
-                // Modal sarlavhasini yangilash
                 modalTitle.textContent = `${productName} - Oqim yaratish`;
 
-                // Yashirin inputga product id yozish
                 hiddenProductInput.value = productId;
 
-                // Modalni ko'rsatish
                 createStreamModal.classList.remove('close');
                 createStreamModal.classList.add('open');
             }
 
-            // Modalni yopish
             function closeModal() {
                 createStreamModal.classList.add('close');
                 createStreamModal.classList.remove('open');

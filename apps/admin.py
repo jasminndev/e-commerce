@@ -78,10 +78,6 @@ class TransactionAdmin(admin.ModelAdmin):
     list_display = ('balance', 'review', 'status', 'created_at', 'payment_id')
 
 
-@admin.register(Account)
-class AccountAdmin(admin.ModelAdmin):
-    list_display = ('username',)
-
 
 @admin.register(Query)
 class QueryAdmin(admin.ModelAdmin):

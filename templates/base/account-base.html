@@ -1,0 +1,404 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown__btn {
+        cursor: pointer;
+    }
+
+    .dropdown__menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        padding: 10px 0;
+        z-index: 1;
+        border-radius: 8px;
+    }
+
+    .dropdown__menu.show {
+        display: block;
+    }
+
+    .dropdown__item {
+        display: block;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: #333;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .dropdown__item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dashboard-icon svg {
+        fill: #3b3b3b; /* Default kulrang */
+        transition: fill 0.3s ease;
+    }
+
+    a.active .dashboard-icon svg {
+        fill: red;
+        font-weight: bold; /* Active bo‘lsa qizil */
+    }
+
+
+</style>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="https://admin.100k.uz/favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Advertiserlar uchun admin panel">
+    <link rel="apple-touch-icon" href="https://admin.100k.uz/logo192.png">
+    <link rel="manifest" href="https://admin.100k.uz/manifest.json">
+    <link rel="stylesheet" href="{% static 'dashboard_files/all.min.css' %}">
+    <title>Reklamachilar kabineti</title>
+    <link href="{% static 'dashboard_files/main.bbfc6021.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard_files/154.45bd50c0.chunk.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard_files/88.3f709be3.chunk.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard_files/905.a466c525.chunk.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard_files/164.8fd4a5f2.chunk.css' %}">
+</head>
+<body>
+<div id="root">
+    <div class="app" style="position: relative;">
+        <div class="layout">
+            <div class="navbar">
+                <div class="container" style="--inner-page-navbar: block;">
+                    <div class="space-b">
+                        <div><a href="{% url 'home' %}">
+                            <svg width="333" height="101" viewBox="0 0 333 101" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" class="logo">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M198.122 0.910567C186.406 3.76833 173.49 18.348 169.707 32.9861C168.43 37.9246 161.389 98.3801 161.924 99.814C162.107 100.306 164.022 99.8713 166.179 98.8495L170.102 96.9899L171.124 86.6043C171.687 80.891 172.444 76.2321 172.806 76.2501C173.169 76.2669 175.701 80.0455 178.434 84.646C184.947 95.6043 190.818 101.434 194.245 100.345C197.527 99.302 206.528 90.9791 206.528 88.9882C206.528 86.7155 205.342 87.0894 201.821 90.4682C197.2 94.9036 193.941 93.2922 187.107 83.1896C184.065 78.6935 181.769 74.9071 182.004 74.7746C182.238 74.6421 185.417 72.9982 189.066 71.1218C197.411 66.8324 202.114 61.1999 202.856 54.6085C203.539 48.5382 201.383 45.8994 195.745 45.8994C190.261 45.8994 186.434 48.1968 179.793 55.4788C176.621 58.9564 174.035 61.3807 174.047 60.8687C174.128 57.4607 177.585 30.8009 178.563 26.0376C180.9 14.6582 187.516 8.28911 197.024 8.27002C202.143 8.25879 203.557 7.76584 206.467 4.97208C208.35 3.16422 209.89 1.27551 209.89 0.773574C209.89 -0.319003 202.828 -0.237031 198.122 0.910567ZM24.199 42.9226C22.2387 44.3116 17.0696 47.1862 12.7109 49.3085C6.21589 52.4728 4.78577 53.6473 4.78577 55.8212V58.4735L8.70853 56.1166C10.8661 54.8196 14.4705 52.6558 16.7177 51.3061L20.8041 48.8526L20.1518 52.7097C19.7943 54.8309 18.6242 65.0301 17.5527 75.3753L15.6036 94.1838H10.652C7.39721 94.1838 4.72301 94.953 2.85017 96.4296L0 98.6754H16.7894C32.1554 98.6754 33.7503 98.4845 35.6075 96.4296C37.6148 94.2074 37.5655 94.1838 30.7376 94.1838C26.9438 94.1838 23.8425 93.8043 23.8459 93.3417C23.8493 92.879 25.1102 81.3828 26.6479 67.7958C28.1856 54.2088 29.4431 42.461 29.4431 41.6885C29.4431 39.7347 28.3201 39.9997 24.199 42.9226ZM71.1578 43.639C60.591 48.4438 50.6698 62.4901 48.6905 75.4483C46.6954 88.5054 51.6045 98.8057 60.6325 100.503C71.3506 102.518 85.6877 92.4759 92.8641 77.9288C96.2937 70.9758 96.9091 68.5762 96.9405 62.0309C96.9875 52.511 94.7168 46.7146 89.7528 43.6828C85.013 40.7868 77.469 40.7688 71.1578 43.639ZM129.312 42.7945C123.104 44.8775 112.898 55.2407 108.759 63.6635C105.792 69.7002 105.033 72.7208 104.759 79.5615C104.361 89.5407 106.306 94.3669 112.382 98.4767C119.695 103.423 130.83 100.131 140.736 90.0909C154.11 76.5387 157.635 56.0593 148.38 45.6826C145.726 42.707 144.355 42.1354 139.189 41.8513C135.849 41.6683 131.405 42.0927 129.312 42.7945ZM237.787 48.9278C232.992 52.8995 230.32 55.9998 229.433 58.6161C228.44 61.5458 229.998 62.5811 231.461 59.9647C233.154 56.9307 237.561 52.6367 238.98 52.6367C240.544 52.6367 240.412 62.3071 238.613 79.4492C237.811 87.0939 237.391 94.5881 237.68 96.104C238.492 100.356 242.597 101.677 247.758 99.3447C252.366 97.2628 261.394 89.2768 266.286 82.9549L269.328 79.0247L268.59 88.2628C267.555 101.245 270.111 103.824 278.415 98.1712C283.007 95.0451 289.782 85.4994 288.68 83.7106C288.227 82.9762 287.489 83.3063 286.745 84.5741C284.258 88.8175 280.244 93.0609 278.719 93.0609C277.635 93.0609 277.144 91.737 277.159 88.8501C277.177 85.1681 279.89 64.7629 282.234 50.6717C283.097 45.4872 282.754 45.229 277.473 47.0739C274.282 48.1878 274.044 48.71 272.837 57.2631C271.359 67.7385 268.676 74.395 262.831 82.088C256.706 90.1515 248.545 94.4286 246.282 90.7612C245.883 90.1145 246.392 82.1441 247.414 73.0498C248.435 63.9555 249.111 54.2526 248.915 51.488C248.58 46.7741 248.34 46.4395 245.072 46.1206C242.57 45.8769 240.512 46.6697 237.787 48.9278ZM300.198 48.2788C298.586 49.5499 296.521 52.036 295.608 53.8034C293.831 57.2485 293.348 63.8657 294.875 63.8657C296.6 63.8657 300.914 58.4252 300.159 57.2013C298.799 54.997 300.715 51.5127 303.271 51.5397C304.617 51.5531 309.183 52.4537 313.419 53.5395L321.121 55.5136L312.442 66.7077C307.669 72.8645 301.406 80.681 298.525 84.0778C294.165 89.2173 288.346 97.8332 288.346 99.1481C288.346 99.4277 304.223 99.8758 321.212 100.075C325.144 100.122 330.256 96.4465 330.734 93.2294C331.123 90.6007 329.867 90.0886 327.891 92.0683C327.017 92.9441 322.561 93.0744 313.051 92.5029L299.461 91.6843L301.389 88.7232C302.45 87.095 308.649 79.2954 315.165 71.3913C321.681 63.4873 328.36 54.6445 330.006 51.7407L333 46.4608L318.064 46.2149C304.477 45.9914 302.865 46.1767 300.198 48.2788ZM80.5287 49.14C85.8794 52.4088 88.279 58.4455 88.1669 68.3572C87.9965 83.3524 80.7193 94.1838 70.8137 94.1838C62.1489 94.1838 57.0336 86.7054 56.972 73.9504C56.9383 66.7762 57.4349 64.4967 60.2794 58.7913C65.611 48.0946 73.0306 44.5586 80.5287 49.14ZM136.704 49.2231C142.346 52.6693 144.29 57.418 144.308 67.7958C144.335 83.1009 137.154 94.1838 127.21 94.1838C118.441 94.1838 113.502 86.9928 113.502 74.2244C113.502 61.8602 118.132 51.6901 125.154 48.6269C129.951 46.5349 132.522 46.6674 136.704 49.2231ZM192.871 57.4944C193.312 62.8596 191.015 66.5382 185.496 69.3039C180.804 71.6552 174.638 73.0891 173.617 72.0662C172.408 70.8546 178.831 60.4667 183.28 56.4388C189.085 51.1848 192.382 51.5486 192.871 57.4944ZM211.861 89.3891C207.807 93.555 207.736 93.7605 209.78 95.5133C210.943 96.5105 212.387 98.2094 212.989 99.2874C213.991 101.081 214.432 100.971 218.152 97.9961C220.389 96.2084 222.219 94.1221 222.219 93.3596C222.219 92.5972 220.831 90.4221 219.137 88.5256L216.055 85.0771L211.861 89.3891Z"
+                                      fill="black"></path>
+                            </svg>
+                        </a></div>
+                        <ul class="navigation">
+                            <li><a aria-current="page"
+                                    {% if request.path == '/dashboard/' %}
+                                   class="active"
+                                    {% endif %}
+                                   href="{% url 'dashboard' %}">
+                                <div class="dashboard-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM256 416c35.3 0 64-28.7 64-64c0-17.4-6.9-33.1-18.1-44.6L366 161.7c5.3-12.1-.2-26.3-12.3-31.6s-26.3 .2-31.6 12.3L257.9 288c-.6 0-1.3 0-1.9 0c-35.3 0-64 28.7-64 64s28.7 64 64 64zM176 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM96 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm352-32a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path>
+                                    </svg>
+                                </div>
+                                <p>Dashboard</p><span> </span></a></li>
+                            <li><a  aria-current="page"
+                                    {% if request.path == '/market/' %}
+                                class="active"
+                            {% endif %}
+                                href="{% url 'market' %}">
+
+                                <div class="dashboard-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                        <path d="M531.6 103.8L474.3 13.1C469.2 5 460.1 0 450.4 0H93.6C83.9 0 74.8 5 69.7 13.1L12.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM483.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H112V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H432c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"></path>
+                                    </svg>
+                                </div>
+                                <p>Market</p><span> </span></a></li>
+                            <li><a aria-current="page"
+                                    {% if request.path == '/stream/' %}
+                                class="active"
+                            {% endif %}
+                                href="{% url 'stream' %}">
+                                <div class="dashboard-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                        <path d="M563.2 267.3c56.2-56.2 56.2-147.4 0-203.6S415.8 7.4 359.6 63.7L348.3 75l45.3 45.3 11.3-11.3c31.2-31.2 81.9-31.2 113.1 0s31.2 81.9 0 113.1L404.8 335.2c-31.2 31.2-81.9 31.2-113.1 0c-25.6-25.6-30.3-64.3-13.8-94.6c1.8-3.4 3.9-6.7 6.3-9.8l-51.2-38.4c-4.3 5.7-8.1 11.6-11.4 17.8c-29.5 54.6-21.3 124.2 24.9 170.3c56.2 56.2 147.4 56.2 203.6 0L563.2 267.3zM42.8 244.7c-56.2 56.2-56.2 147.4 0 203.6s147.4 56.2 203.6 0L257.7 437l-45.3-45.3-11.3 11.3c-31.2 31.2-81.9 31.2-113.1 0s-31.2-81.9 0-113.1L201.2 176.8c31.2-31.2 81.9-31.2 113.1 0c25.6 25.6 30.3 64.3 13.8 94.6c-1.8 3.4-3.9 6.7-6.3 9.8l51.2 38.4c4.3-5.7 8.1-11.6 11.4-17.8c29.5-54.6 21.3-124.2-24.9-170.3c-56.2-56.2-147.4-56.2-203.6 0L42.8 244.7z"></path>
+                                    </svg>
+                                </div>
+                                <p>Oqim</p><span> </span></a></li>
+                            <li><a aria-current="page"
+                                    {% if request.path == '/statistics/' %}
+                                class="active"
+                            {% endif %}
+                                href="{% url 'statistics' %}">
+                                <div class="dashboard-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zM439 279c15.1 15.1 41 4.4 41-17V152c0-13.3-10.7-24-24-24H345.9c-21.4 0-32.1 25.9-17 41l32.4 32.4L304 258.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0l-80 80c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L208 253.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0l80-80L439 279z"></path>
+                                    </svg>
+                                </div>
+                                <p>Statistika</p><span> </span></a></li>
+                            <li><a aria-current="page"
+                                    {% if request.path == '/payment/' %}
+                                class="active"
+                            {% endif %}
+                                href="{% url 'payment' %}">
+                                <div class="dashboard-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                        <path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"></path>
+                                    </svg>
+                                </div>
+                                <p>To'lov</p><span> </span></a></li>
+                        </ul>
+                        <div class="navbar-menu" style="display: flex;">
+                            <div class="dropdown" id="dropdown">
+                                <div class="dropdown__btn" id="dropdownBtn">
+                                    <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                                         style="height: 35px; width: 35px;">
+                                        <path fill-rule="evenodd"
+                                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <ul class="dropdown__menu" id="dropdownMenu">
+                                    <li><a class="dropdown__item" href="{% url 'profile' request.user.pk %}">Profil</a></li>
+                                    <li>
+                                        <a class="dropdown__item" href="{% url 'logout' %}">Chiqish</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar__mobile">
+                    <div class="navbar__mobile-content">
+                        <li><a aria-current="page"
+                               {% if request.path == '/dashboard/' %}
+                               	class="active"
+                               {% endif %}
+                               href="{% url 'dashboard' %}">
+                            <div class="dashboard-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM256 416c35.3 0 64-28.7 64-64c0-17.4-6.9-33.1-18.1-44.6L366 161.7c5.3-12.1-.2-26.3-12.3-31.6s-26.3 .2-31.6 12.3L257.9 288c-.6 0-1.3 0-1.9 0c-35.3 0-64 28.7-64 64s28.7 64 64 64zM176 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM96 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm352-32a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path>
+                                </svg>
+                            </div>
+                            <p>Dashboard</p></a></li>
+                        <li><a aria-current="page"
+                               {% if request.path == '/market/' %}
+                               	class="active"
+                               {% endif %}
+                               href="{% url 'market' %}">
+                            <div class="dashboard-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M531.6 103.8L474.3 13.1C469.2 5 460.1 0 450.4 0H93.6C83.9 0 74.8 5 69.7 13.1L12.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM483.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H112V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H432c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"></path>
+                                </svg>
+                            </div>
+                            <p>Market</p></a></li>
+                        <li><a aria-current="page"
+                               {% if request.path == '/stream/' %}
+                               	class="active"
+                               {% endif %}
+                               href="{% url 'stream' %}">
+                            <div class="dashboard-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path d="M563.2 267.3c56.2-56.2 56.2-147.4 0-203.6S415.8 7.4 359.6 63.7L348.3 75l45.3 45.3 11.3-11.3c31.2-31.2 81.9-31.2 113.1 0s31.2 81.9 0 113.1L404.8 335.2c-31.2 31.2-81.9 31.2-113.1 0c-25.6-25.6-30.3-64.3-13.8-94.6c1.8-3.4 3.9-6.7 6.3-9.8l-51.2-38.4c-4.3 5.7-8.1 11.6-11.4 17.8c-29.5 54.6-21.3 124.2 24.9 170.3c56.2 56.2 147.4 56.2 203.6 0L563.2 267.3zM42.8 244.7c-56.2 56.2-56.2 147.4 0 203.6s147.4 56.2 203.6 0L257.7 437l-45.3-45.3-11.3 11.3c-31.2 31.2-81.9 31.2-113.1 0s-31.2-81.9 0-113.1L201.2 176.8c31.2-31.2 81.9-31.2 113.1 0c25.6 25.6 30.3 64.3 13.8 94.6c-1.8 3.4-3.9 6.7-6.3 9.8l51.2 38.4c4.3-5.7 8.1-11.6 11.4-17.8c29.5-54.6 21.3-124.2-24.9-170.3c-56.2-56.2-147.4-56.2-203.6 0L42.8 244.7z"></path>
+                                </svg>
+                            </div>
+                            <p>Oqim</p></a></li>
+                        <li><a aria-current="page"
+                               {% if request.path == '/statistics/' %}
+                               	class="active"
+                               {% endif %}
+                               href="{% url 'statistics' %}">
+                            <div class="dashboard-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zM439 279c15.1 15.1 41 4.4 41-17V152c0-13.3-10.7-24-24-24H345.9c-21.4 0-32.1 25.9-17 41l32.4 32.4L304 258.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0l-80 80c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L208 253.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0l80-80L439 279z"></path>
+                                </svg>
+                            </div>
+                            <p>Statistika</p></a></li>
+                        <li><a aria-current="page"
+                               {% if request.path == '/payment/' %}
+                               	class="active"
+                               {% endif %}
+                               href="{% url 'payment' %}">
+                            <div class="dashboard-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"></path>
+                                </svg>
+                            </div>
+                            <p>To'lov</p></a></li>
+                    </div>
+                </div>
+            </div>
+            {% block account_base %}
+
+            {% endblock %}
+        </div>
+    </div>
+    <div style="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;"></div>
+</div>
+<div id="modal">
+    <div class="modal close modal-news">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <div class="modal__box">
+                <div class="modal__header"><p class="modal__title"></p>
+                    <div style="padding: 10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="select-modal__close-icon"
+                             style="cursor: pointer;">
+                            <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="page-news page-news-view" style="position: relative;">
+                    <div class="container goback-header__container">
+                        <div class="goback-header">
+                            <div class="goback-header__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                    <path d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path>
+                                </svg>
+                            </div>
+                            <div class="btn"> Yangiliklar</div>
+                            <div class="end mobile-menu">
+                                <div class="profile">
+                                    <div class="dropdown" id="dropdown">
+                                        <div class="dropdown__btn" id="dropdownBtn">
+                                            <svg fill="currentColor" viewBox="0 0 20 20"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                                 style="height: 35px; width: 35px;">
+                                                <path fill-rule="evenodd"
+                                                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
+                                                      clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                        <ul class="dropdown__menu" id="dropdownMenu">
+                                            <li><a class="dropdown__item" href="{% url 'profile' request.user.pk %}">Profil</a></li>
+                                            <li>
+                                                <a class="dropdown__item" href="{% url 'logout' %}">Chiqish</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <script>
+                                        const dropdownBtn = document.getElementById('dropdownBtn');
+                                        const dropdownMenu = document.getElementById('dropdownMenu');
+
+                                        dropdownBtn.addEventListener('click', () => {
+                                            dropdownMenu.classList.toggle('show');
+                                        });
+
+                                        // Optional: Close dropdown when clicking outside
+                                        document.addEventListener('click', (event) => {
+                                            if (!document.getElementById('dropdown').contains(event.target)) {
+                                                dropdownMenu.classList.remove('show');
+                                            }
+                                        });
+
+                                        function logout() {
+                                            alert("Siz tizimdan chiqmoqchisiz.");
+                                            // logout qilish uchun kerakli funksiyani bu yerga yozing, masalan:
+                                            // window.location.href = '/logout';
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spinner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100px"
+                             height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"
+                             style="fill: rgb(48, 104, 131);">
+                            <g transform="rotate(0 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.3107344632768362s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(30 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.2824858757062147s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(60 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.2542372881355932s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(90 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.22598870056497175s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(120 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.1977401129943503s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(150 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.16949152542372883s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(180 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.14124293785310735s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(210 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.11299435028248588s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(240 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.08474576271186442s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(270 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.05649717514124294s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(300 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="-0.02824858757062147s"
+                                             repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                            <g transform="rotate(330 50 50)">
+                                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="inherit">
+                                    <animate attributeName="opacity" values="1;0" keyTimes="0;1"
+                                             dur="0.33898305084745767s" begin="0s" repeatCount="indefinite"></animate>
+                                </rect>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <div class="close-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="select-menus"></div>
+<input id="copy" style="opacity:0;height:0;position:absolute;z-index:-1">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CString.prototype.replaceAll%2CSymbol.replace"></script>
+<script src="{% static 'dashboard_files/script.js' %}"></script>
+</body>
+</html>

@@ -4,4 +4,4 @@ mig:
 user:
 	python3 manage.py createsuperuser
 fix:
-	python manage.py loaddata categories products districts regions
+	python3 manage.py loaddata categories products regions attributes deliveries productimages

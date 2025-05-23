@@ -1,7 +1,9 @@
-from django.views.generic import DetailView, ListView, CreateView
+from django.db.models import Q
+from django.shortcuts import render
+from django.views import View
+from django.views.generic import DetailView, ListView
 
-from apps.forms import StreamModelForm
-from apps.models import Category, Product, Region, Stream
+from apps.models import Category, Product, Region
 
 
 class ProductDetail(DetailView):
@@ -29,18 +31,12 @@ class ProductListView(ListView):
         data['categories'] = Category.objects.all()
         return data
 
-class StreamCreateView(CreateView):
-    queryset = Stream.objects.all()
-    form_class = StreamModelForm
-    template_name = 'account/market.html'
 
-    def form_valid(self, form):
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
-
-
-
+class SearchListView(View):
+    def post(self, request):
+        search = request.POST.get("search")
+        products = Product.objects.filter(Q(name__icontains=search) | Q(description_icontains=search))
+        context = {"products" : products}
+        return render(request, '' , context)
 
 

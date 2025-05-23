@@ -1,7 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db.models import Model, ImageField, CharField, DecimalField, TextField, ForeignKey, \
-    DateTimeField, CASCADE, BooleanField, EmailField, TextChoices
+    DateTimeField, CASCADE, EmailField, TextChoices
 
 
 class CustomerUser(UserManager):
@@ -38,6 +38,8 @@ class CustomerUser(UserManager):
 class User(AbstractUser):
     username = None
     email = EmailField(max_length=255, unique=True)
+    image = ImageField(upload_to='users', null=True, blank=True)
+    phone_number = CharField(max_length=25, null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomerUser()
@@ -54,10 +56,3 @@ class Transaction(Model):
     status = CharField(max_length=255, choices=StatusType, default=StatusType.PENDING)
     created_at = DateTimeField(auto_now_add=True)
     payment = ForeignKey('apps.Payment', on_delete=CASCADE, related_name='transactions')
-
-
-class Account(Model):
-    image = ImageField(upload_to='accounts', null=True, blank=True)
-    username = CharField(max_length=255)
-    user = ForeignKey('apps.User', on_delete=CASCADE, related_name='accounts')
-    district = ForeignKey('apps.District', on_delete=CASCADE, related_name='accounts')

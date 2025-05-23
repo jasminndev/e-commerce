@@ -62,10 +62,12 @@ class ProductImage(Model):
 
 
 class Stream(Model):
+    class Meta:
+        default_related_name = "streams"
+
     name = CharField(max_length=255)
-    product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='streams')
-    owner = ForeignKey('apps.User', on_delete=CASCADE, related_name='streams')
-    discount_price = DecimalField(max_digits=9, decimal_places=0)
+    product = ForeignKey('apps.Product', on_delete=CASCADE)
+    owner = ForeignKey('apps.User', on_delete=CASCADE)
     created_at = DateTimeField(auto_now=True)
     visit_count = PositiveIntegerField(default=0)
 

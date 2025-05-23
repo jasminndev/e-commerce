@@ -1,0 +1,110 @@
+[
+  {
+    "model": "apps.product",
+    "pk": 1,
+    "fields": {
+      "name": "Airpods TWS simsiz quloqchinlari",
+      "price": "122000",
+      "discount": 25,
+      "main_image": "product/2025/05/19/air.webp",
+      "quantity": 10,
+      "description": "<p>- TWS i12 simsiz quloqchin naushnik, Bluetooth 5.0&nbsp;</p><p>- TWS i12 simsiz quloqchinlari ajoyib ovozga ega.&nbsp;</p><p>- To'liq quvvat olish uchun ularga atigi 60 daqiqa kerak bo'ladi.</p><p>- Naushniklar sensorlar yordamida kiruvchi qo'ng'iroqlarga javob berish yoki rad etish, shuningdek, musiqa tovushini oshirish yoki kamaytirish va treklarni almashtirish imkonini beradi.&nbsp;</p><p>- Naushniklar zamonaviy ixcham sumkada, u ham zaryadlovchi hisoblanadi.</p><p>- TWS i12 IOS va Android platformalari uchun javob beradi.&nbsp;</p><p>- Eshitish vositalarini to'liq zaryadlash 2-3 soat musiqa tinglash yoki 3-4 soat telefon orqali suhbatlashish uchun etarli.</p>",
+      "manual": "<p>&nbsp;</p>",
+      "created_at": "2025-05-22T09:58:56.144Z",
+      "bonus_price": "20000",
+      "attribute": null,
+      "seller": null,
+      "category": 1
+    }
+  },
+  {
+    "model": "apps.product",
+    "pk": 2,
+    "fields": {
+      "name": "Smart Watch Ultra T800 aqlli soati",
+      "price": "92000",
+      "discount": 10,
+      "main_image": "product/2025/05/19/watch.webp",
+      "quantity": 9,
+      "description": "<p>- IOS va Android ikkalasida ham qotmasdan ishlaydi&nbsp;</p><p>- Batareya chidamliligi 100% 48 soatga yetadi&nbsp;</p><p>- Ranglari aplesin, qora, kulrang, yashi ranglari mavjud&nbsp;</p><p>- Funksiyalari juda ko'p, suvda ham ishlaydi&nbsp;</p><p>- Ob-havo aniqlash qon bosm qo'ng'iroq qilish.</p>",
+      "manual": "<p>&nbsp;</p>",
+      "created_at": "2025-05-22T09:59:04.729Z",
+      "bonus_price": "25000",
+      "attribute": 1,
+      "seller": null,
+      "category": 1
+    }
+  },
+  {
+    "model": "apps.product",
+    "pk": 3,
+    "fields": {
+      "name": "Chiroqli elektr pashsha o`ldirgich GECKO MATAMOSCA (6-10v)",
+      "price": "122000",
+      "discount": 0,
+      "main_image": "product/2025/05/19/fly.webp",
+      "quantity": 12,
+      "description": "<p><span style=\"background-color:rgb(255,255,255);color:rgb(36,36,36);\">GECKO MATAMOSCA — chivin va pashsha lardan xalos bo'lish uchun eng yaxshi vosita! &nbsp;</span></p><p><span style=\"background-color:rgb(255,255,255);color:rgb(36,36,36);\">Ushbu mahsulot raketka shaklida ishlab chiqiligan bo'lib;&nbsp;</span></p><p><span style=\"background-color:rgb(255,255,255);color:rgb(36,36,36);\">Chivin va pashshalarni elektr toki yordamida nobud qiladi (6-10v)&nbsp;</span></p><p><span style=\"background-color:rgb(255,255,255);color:rgb(36,36,36);\">&nbsp;Tungi paytda chiroqlarsiz ishlatilishi uchun maxsus fonari mavjud;&nbsp;</span></p><p><span style=\"background-color:rgb(255,255,255);color:rgb(36,36,36);\">Sayohat, ziyofat va dam olish joylarida foydalanish uchun juda qulay; &nbsp;</span></p><p><span style=\"background-color:rgb(255,255,255);color:rgb(36,36,36);\">Bir marotaba 110-220 V quvvat bilan zaryadlansa 3 oy davomida foydalanishga imkon beradi.</span></p>",
+      "manual": "<p>&nbsp;</p>",
+      "created_at": "2025-05-22T09:59:15.398Z",
+      "bonus_price": "20000",
+      "attribute": null,
+      "seller": null,
+      "category": 2
+    }
+  },
+  {
+    "model": "apps.product",
+    "pk": 4,
+    "fields": {
+      "name": "MEN - bas qil ey nafs",
+      "price": "159000",
+      "discount": 0,
+      "main_image": "product/2025/05/19/book.webp",
+      "quantity": 21,
+      "description": "<p><span style=\"background-color:rgb(255,255,255);color:rgb(36,36,36);\">Fotih Duman. \"Men (bas qil, ey, nafs)\"🔥 Ushbu kitob sahifalari orqali bosh qahramonning nafs bilan murosasiz kurashiga duch kelasiz. Fotih Duman sizga hayot yo'lidagi nafs to'siqlarini yengib o'tish uchun ilhom va qat'iyat bag'ishlaydi.</span></p>",
+      "manual": "<p>&nbsp;</p>",
+      "created_at": "2025-05-22T09:59:25.647Z",
+      "bonus_price": "30000",
+      "attribute": null,
+      "seller": null,
+      "category": 18
+    }
+  },
+  {
+    "model": "apps.product",
+    "pk": 5,
+    "fields": {
+      "name": "Ayollar va qizlar uchun taqinchoq Al Asma Ul Husna",
+      "price": "49000",
+      "discount": 0,
+      "main_image": "product/2025/05/19/jew.webp",
+      "quantity": 123,
+      "description": "<p style=\"margin-left:0px;\">- Allohning 99 go'zal ismi bitilgan</p><p style=\"margin-left:0px;\">- Onangiz, singlingiz, ayolingiz yoki qizlaringiz uchun ajoyib sovg`a, sifatli metaldan tayyorlangan.&nbsp;</p><p style=\"margin-left:0px;\">- Go'zal dizaynga ega.</p><p style=\"margin-left:0px;\">- Tillarang taqinchoq, rangi o'chib ketmaydi va qoraymaydi.</p>",
+      "manual": "<p>&nbsp;</p>",
+      "created_at": "2025-05-22T09:59:34.039Z",
+      "bonus_price": "15000",
+      "attribute": null,
+      "seller": null,
+      "category": 5
+    }
+  },
+  {
+    "model": "apps.product",
+    "pk": 6,
+    "fields": {
+      "name": "Yonadigan uzuk, puls va yurak, fosforli, sevishganlar uchun, qorong'uda yonadigan",
+      "price": "104000",
+      "discount": 0,
+      "main_image": "product/2025/05/19/rin.webp",
+      "quantity": 100,
+      "description": "<p style=\"margin-left:0px;\">- Lakonik dizayn va g'ayrioddiy porlash qiziqarli tasvirni yaratadi.&nbsp;</p><p style=\"margin-left:0px;\">- Uzukni har qanday uslubdagi kiyim bilan taqish mumkin.&nbsp;</p><p style=\"margin-left:0px;\">- \"Sevgi\" po'lat halqasi qorong'uda porlab turadigan maxsus materialdan tayyorlangan zamonaviy aksessuardir.</p>",
+      "manual": "<p>&nbsp;</p>",
+      "created_at": "2025-05-22T09:59:54.491Z",
+      "bonus_price": "20000",
+      "attribute": 2,
+      "seller": null,
+      "category": 5
+    }
+  }
+]

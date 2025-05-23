@@ -1,0 +1,164 @@
+[
+  {
+    "model": "apps.category",
+    "pk": 1,
+    "fields": {
+      "name": "Elektronika",
+      "slug": "elektronika",
+      "icon": "https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/66/external-Headphones-office-smashingstocks-flat-smashing-stocks-2.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 2,
+    "fields": {
+      "name": "Maishiy texnika",
+      "slug": "maishiy-texnika",
+      "icon": "https://img.icons8.com/fluency/48/appliances.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 3,
+    "fields": {
+      "name": "Kiyim",
+      "slug": "kiyim",
+      "icon": "https://img.icons8.com/3d-fluency/94/clothes.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 4,
+    "fields": {
+      "name": "Poyabzallar",
+      "slug": "poyabzallar",
+      "icon": "https://img.icons8.com/scribby/50/sneakers.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 5,
+    "fields": {
+      "name": "Aksessuarlar",
+      "slug": "aksessuarlar",
+      "icon": "https://img.icons8.com/external-victoruler-linear-colour-victoruler/50/external-backpack-clothes-and-outfit-victoruler-linear-colour-victoruler.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 6,
+    "fields": {
+      "name": "Go'zallik va Parvarish",
+      "slug": "gozallik-va-parvarish",
+      "icon": "https://img.icons8.com/external-photo3ideastudio-flat-photo3ideastudio/64/external-makeup-supermarket-photo3ideastudio-flat-photo3ideastudio.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 7,
+    "fields": {
+      "name": "Salomatlik",
+      "slug": "salomatlik",
+      "icon": "https://img.icons8.com/color/48/doctors-bag.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 8,
+    "fields": {
+      "name": "Uy-ro'zg'or buyumlari",
+      "slug": "uy-rozgor-buyumlari",
+      "icon": "https://img.icons8.com/emoji/48/house-emoji.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 9,
+    "fields": {
+      "name": "Qurilish va ta'mirlash",
+      "slug": "qurilish-va-tamirlash",
+      "icon": "https://img.icons8.com/color/48/wrench.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 10,
+    "fields": {
+      "name": "Avtotovarlar",
+      "slug": "avtotovarlar-1",
+      "icon": "https://img.icons8.com/3d-fluency/94/car.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 11,
+    "fields": {
+      "name": "Bolalar tovarlari",
+      "slug": "bolalar-tovarlari",
+      "icon": "https://img.icons8.com/external-soft-fill-juicy-fish/60/external-toys-humanitarian-soft-fill-soft-fill-juicy-fish.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 12,
+    "fields": {
+      "name": "Xobbi va ijod",
+      "slug": "xobbi-va-ijod",
+      "icon": "https://img.icons8.com/stickers/100/paint-palette-with-brush.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 13,
+    "fields": {
+      "name": "Sport va hordiq",
+      "slug": "sport-va-hordiq",
+      "icon": "https://img.icons8.com/officel/80/volleyball.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 14,
+    "fields": {
+      "name": "Oziq-ovqat mahsulotlari",
+      "slug": "oziq-ovqat-mahsulotlari",
+      "icon": "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/external-foods-farm-flaticons-lineal-color-flat-icons.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 15,
+    "fields": {
+      "name": "Maishiy kimyoviy moddalar",
+      "slug": "maishiy-kimyoviy-moddalar",
+      "icon": "https://img.icons8.com/external-becris-lineal-color-becris/64/external-gel-babys-health-becris-lineal-color-becris.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 16,
+    "fields": {
+      "name": "Kanselyariya tovarlari",
+      "slug": "kanselyariya-tovarlari",
+      "icon": "https://img.icons8.com/stickers/100/copybook.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 17,
+    "fields": {
+      "name": "Hayvonlar uchun tovarlar",
+      "slug": "hayvonlar-uchun-tovarlar",
+      "icon": "https://img.icons8.com/officel/80/dog-bowl.png"
+    }
+  },
+  {
+    "model": "apps.category",
+    "pk": 18,
+    "fields": {
+      "name": "Kitoblar",
+      "slug": "kitoblar",
+      "icon": "https://img.icons8.com/3d-fluency/94/books.png"
+    }
+  }
+]

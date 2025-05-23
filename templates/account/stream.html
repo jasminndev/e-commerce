@@ -1,4 +1,4 @@
-{% extends 'account-base.html' %}
+{% extends 'base/account-base.html' %}
 {% block account_base %}
     {% load static %}
     <head>
@@ -15,65 +15,11 @@
         <link rel="stylesheet" type="text/css" href="{% static 'stream_files/48.01f17801.chunk.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'stream_files/379.a6858002.chunk.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'stream_files/661.9db8dfee.chunk.css' %}">
+        <style data-emotion="css" data-s=""></style>
         <link rel="stylesheet" type="text/css" href="{% static 'stream_files/939.6fbae9ab.chunk.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'stream_files/708.13411cd4.chunk.css' %}">
-        <style>
-            .modal {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 9999;
-            }
-
-            .modal.open {
-                display: block;
-            }
-
-            .modal.close {
-                display: none;
-            }
-
-            .modal__overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 9998;
-            }
-
-            .modal__content {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                max-width: 500px;
-                width: 90%;
-                z-index: 9999;
-            }
-
-            .modal__header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .select-modal__close-icon {
-                cursor: pointer;
-                width: 24px;
-                height: 24px;
-            }
-        </style>
     </head>
     <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
         <div class="app" style="position: relative;">
             <div class="layout">
@@ -83,82 +29,130 @@
                             <div class="container">
                                 <div class="mantine-1q1idfv"></div>
                                 <h1>Mening havolalarim</h1>
-                                <div class="mantine-1q1idfv"></div>
-                                <div class="stream__cards">
-                                    {% for stream in streams %}
-                                        <div class="stream-card">
-                                            <div class="stream-card__header">
-                                                <div class="mantine-Badge-root mantine-7io53s" style="background-color: rgb(0, 0, 0);">
-                                                    <span class="mantine-h9iq4m mantine-Badge-inner">100%</span>
-                                                </div>
-                                                <h2>{{ stream.name }}</h2>
-                                                <div class="icon">
-                                                    <div class="right-bottom">
-                                                        <div class="action__delete">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="17px" style="cursor: pointer;" onclick="openDeleteModal({{ stream.id }})">
-                                                                <path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z"></path>
-                                                            </svg>
+                                <div class="mantine-1q1idfv">
+                                    <div class="stream__cards">
+                                        {% for stream in streams %}
+                                            <div class="stream-card">
+                                                <div class="stream-card__header">
+                                                    <div class="mantine-Badge-root mantine-7io53s"
+                                                         style="background-color: rgb(0, 0, 0);">
+                                                        <span class="mantine-h9iq4m mantine-Badge-inner">100%</span>
+                                                    </div>
+                                                    <h2>{{ stream.name|default:"Unnamed Stream" }}</h2>
+                                                    <div class="icon">
+                                                        <div class="right-bottom">
+                                                            <div class="action__delete">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     viewBox="0 0 448 512" width="17px"
+                                                                     style="cursor: pointer;">
+                                                                    <path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z"></path>
+                                                                </svg>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="stream-card__body">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="input">
-                                                            <div>{{ stream.product.name }}</div>
-                                                        </label>
-                                                        <input name="link" type="text" class="form-control" autocomplete="off" maxlength="255" value="{% url 'stream_detail' stream.id %}" disabled>
-                                                        <p class="form__error"></p>
-                                                    </div>
-                                                    <div>
+                                                <div class="stream-card__body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="input">
+                                                                <div>{{ stream.name|default:"Unnamed Stream" }}</div>
+                                                            </label>
+                                                            <input name="link" type="text" class="form-control"
+                                                                   autocomplete="off" maxlength="255"
+                                                                   value="{{ stream.link|default:'' }}" disabled>
+                                                            <p class="form__error"></p>
+                                                        </div>
                                                         <div class="mantine-wadvlz">
                                                             <div class="form-group undefined">
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" disabled {% if stream.auto_accept %}checked{% endif %}>
-                                                                    <label class="form-check-label">Operatorsiz</label>
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="region-{{ stream.id }}">
+                                                                    <label class="form-check-label"
+                                                                           for="region-{{ stream.id }}">
+                                                                        so'rovlarni hududsiz qabul qilish
+                                                                    </label>
                                                                 </div>
                                                             </div>
-                                                            <p class="profit f-c" style="gap: 5px;">Foyda: {{ stream.profit|floatformat:'0' }} so'm
-                                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <g opacity="0.7" clip-path="url(#clip0_213_20219)">
-                                                                        <path d="M9.99935 18.3333C5.39685 18.3333 1.66602 14.6025 1.66602 10C1.66602 5.39751 5.39685 1.66667 9.99935 1.66667C14.6018 1.66667 18.3327 5.39751 18.3327 10C18.3327 14.6025 14.6018 18.3333 9.99935 18.3333ZM9.16602 9.16667V14.1667H10.8327V9.16667H9.16602ZM9.16602 5.83334V7.5H10.8327V5.83334H9.16602Z" fill="#293462"></path>
+                                                            <div class="form-group mt-10">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="operator-{{ stream.id }}" disabled
+                                                                           checked>
+                                                                    <label class="form-check-label"
+                                                                           for="operator-{{ stream.id }}">
+                                                                        Operatorsiz
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <p class="profit f-c" style="gap: 5px;">
+                                                                Foyda: {{ stream.profit|default:0 }} so'm
+                                                                <svg width="20" height="20" viewBox="0 0 20 20"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g opacity="0.7" clip-path="url(#clip0)">
+                                                                        <path d="M9.99935 18.3333C5.39685 18.3333 1.66602 14.6025 1.66602 10C1.66602 5.39751 5.39685 1.66667 9.99935 1.66667C14.6018 1.66667 18.3327 5.39751 18.3327 10C18.3327 14.6025 14.6018 18.3333 9.99935 18.3333ZM9.16602 9.16667V14.1667H10.8327V9.16667H9.16602ZM9.16602 5.83334V7.5H10.8327V5.83334H9.16602Z"
+                                                                              fill="#293462"/>
                                                                     </g>
                                                                     <defs>
-                                                                        <clippath id="clip0_213_20219">
-                                                                            <rect width="20" height="20" fill="white"></rect>
-                                                                        </clippath>
+                                                                        <clipPath id="clip0">
+                                                                            <rect width="20" height="20" fill="white"/>
+                                                                        </clipPath>
                                                                     </defs>
                                                                 </svg>
                                                             </p>
                                                         </div>
-                                                    </div>
-                                                    <p class="mb-10" style="text-align: end;">{{ stream.created_at|date:"d.m.Y H:i:s" }}</p>
-                                                </form>
+                                                        <p class="mb-10" style="text-align: end;">
+                                                            {{ stream.created_at|default:"13.05.2025 21:44:26" }}
+                                                        </p>
+                                                    </form>
+                                                </div>
+                                                <div class="stream-card__footer bt pt-20 f-c-sb">
+                                                    <button type="button" class="btn btn-primary copy-link-btn"
+                                                            data-link="{{ stream.link|default:'' }}">
+                                                        Nusxa ko'chirish
+                                                    </button>
+                                                    <button type="button" class="btn btn-default">
+                                                        <i class="fa-solid fa-file-import"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="stream-card__footer bt pt-20 f-c-sb">
-                                                <button type="button" class="btn btn-primary" onclick="copyLink('{% url 'stream_detail' stream.id %}')">Nusxa ko'chirish</button>
-                                                <button type="button" class="btn btn-default"><i class="fa-solid fa-file-import"></i></button>
-                                            </div>
-                                        </div>
-                                    {% empty %}
-                                        <p>No streams available.</p>
-                                    {% endfor %}
-                                </div>
-                                <div class="pagination">
-                                    <div class="display-records"><p>Ko'rsatilgan ma'lumotlar: {{ page_obj.start_index }}-{{ page_obj.end_index }} jami {{ page_obj.paginator.count }}</p></div>
-                                    <ul role="navigation" aria-label="Pagination">
-                                        <li class="{% if not page_obj.has_previous %}disabled{% endif %}">
-                                            <a class="" tabindex="-1" role="button" aria-disabled="{% if not page_obj.has_previous %}true{% else %}false{% endif %}" aria-label="Previous page" rel="prev" {% if page_obj.has_previous %}href="?page={{ page_obj.previous_page_number }}"{% endif %}><span class="pagination__prev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
-                                        </li>
-                                        {% for num in page_obj.paginator.page_range %}
-                                            <li class="{% if page_obj.number == num %}selected{% endif %}"><a rel="canonical" role="button" tabindex="-1" aria-label="Page {{ num }}{% if page_obj.number == num %} is your current page{% endif %}" aria-current="{% if page_obj.number == num %}page{% endif %}" href="?page={{ num }}">{{ num }}</a></li>
+                                        {% empty %}
+                                            <p>Oqim mavjud emas.</p>
                                         {% endfor %}
-                                        <li class="{% if not page_obj.has_next %}disabled{% endif %}">
-                                            <a class="" tabindex="-1" role="button" aria-disabled="{% if not page_obj.has_next %}true{% else %}false{% endif %}" aria-label="Next page" rel="next" {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}"{% endif %}><span class="pagination__next"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
-                                        </li>
-                                    </ul>
+                                    </div>
                                 </div>
+                            </div>
+
+                            <!-- Pagination -->
+                            <div class="pagination">
+                                <div class="display-records">
+                                    <p>Ko'rsatilgan ma'lumotlar: 1-{{ streams|length }} jami {{ streams|length }}</p>
+                                </div>
+                                <ul role="navigation" aria-label="Pagination">
+                                    <li class="previous disabled">
+                                        <a class=" " tabindex="-1" role="button" aria-disabled="true"
+                                           aria-label="Previous page" rel="prev">
+                                        <span class="pagination__prev">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                                <path d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"/>
+                                            </svg>
+                                        </span>
+                                        </a>
+                                    </li>
+                                    <li class="selected">
+                                        <a rel="canonical" role="button" tabindex="-1"
+                                           aria-label="Page 1 is your current page" aria-current="page">1</a>
+                                    </li>
+                                    <li class="next disabled">
+                                        <a class=" " tabindex="-1" role="button" aria-disabled="true"
+                                           aria-label="Next page" rel="next">
+                                        <span class="pagination__next">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                                <path d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"/>
+                                            </svg>
+                                        </span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </main>
@@ -175,19 +169,21 @@
                     <div class="modal__header"><p class="modal__title">Targetdan tushgan leadlarni import qilish</p>
                         <div style="padding: 10px;">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
-                                 class="select-modal__close-icon"
-                                 style="cursor: pointer;">
+                                 class="select-modal__close-icon" style="cursor: pointer;">
                                 <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path>
                             </svg>
                         </div>
                     </div>
                     <form class="p-20">
-                        <div class="ticket-form-group"><label class="ticket-form-label " for="select">Facebookdan
-                            olingan
-                            .csv faylni yuklang</label>
-                            <div class="ticket-form-upload"><p class="placeholder">csv faylni tanlang</p><input
-                                    class="bg-input" type="file" accept=".xlsx, .xls, .csv"></div>
-                            <p class="form__error"></p></div>
+                        <div class="ticket-form-group">
+                            <label class="ticket-form-label" for="select">Facebookdan olingan .csv faylni
+                                yuklang</label>
+                            <div class="ticket-form-upload">
+                                <p class="placeholder">csv faylni tanlang</p>
+                                <input class="bg-input" type="file" accept=".xlsx, .xls, .csv">
+                            </div>
+                            <p class="form__error"></p>
+                        </div>
                         <div class="f-c-e g-10 mt-10">
                             <button class="mantine-UnstyledButton-root mantine-Button-root mantine-8nr514" type="submit"
                                     data-button="true">
@@ -195,8 +191,7 @@
                                         class="mantine-qo1k2 mantine-Button-label">Jo'natish</span></div>
                             </button>
                             <button class="mantine-UnstyledButton-root mantine-Button-root mantine-1is15mz"
-                                    type="submit"
-                                    data-button="true">
+                                    type="button" data-button="true">
                                 <div class="mantine-3xbgk5 mantine-Button-inner"><span
                                         class="mantine-qo1k2 mantine-Button-label">Bekor qilish</span></div>
                             </button>
@@ -212,8 +207,7 @@
                     <div class="modal__header"><p class="modal__title"></p>
                         <div style="padding: 10px;">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
-                                 class="select-modal__close-icon"
-                                 style="cursor: pointer;">
+                                 class="select-modal__close-icon" style="cursor: pointer;">
                                 <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path>
                             </svg>
                         </div>
@@ -223,7 +217,7 @@
                              aria-labelledby="mantine-r0-title" aria-describedby="mantine-r0-body">
                             <div class="mantine-17do188 mantine-Alert-wrapper">
                                 <div class="mantine-soroux mantine-Alert-icon"><i class="fa-solid fa-circle-check"
-                                                                                  style="font-size: 30px; display: block;"> </i>
+                                                                                  style="font-size: 30px; display: block;"></i>
                                 </div>
                                 <div class="mantine-1eawhj0 mantine-Alert-body">
                                     <div class="mantine-e546sj mantine-Alert-title"><span id="mantine-r0-title"
@@ -244,15 +238,14 @@
                 </div>
             </div>
         </div>
-        <div class="modal close modal-delete-stream">
+        <div class="modal close undefined">
             <div class="modal__overlay"></div>
             <div class="modal__content">
                 <div class="modal__box">
                     <div class="modal__header"><p class="modal__title">Oqimni o'chirish</p>
                         <div style="padding: 10px;">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
-                                 class="select-modal__close-icon"
-                                 style="cursor: pointer;">
+                                 class="select-modal__close-icon" style="cursor: pointer;">
                                 <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path>
                             </svg>
                         </div>
@@ -260,13 +253,13 @@
                     <div class="modal-confirm">
                         <div>Siz rostdan ham ushbu oqimni o'chirmoqchimisiz?</div>
                         <div class="btn-group">
-                            <button class="mantine-UnstyledButton-root mantine-Button-root btn btn-primary mantine-8nr514 delete-confirm-btn"
+                            <button class="mantine-UnstyledButton-root mantine-Button-root btn btn-primary mantine-8nr514"
                                     type="button" data-button="true">
                                 <div class="mantine-3xbgk5 mantine-Button-inner"><span
                                         class="mantine-qo1k2 mantine-Button-label">Tasdiqlash</span></div>
                             </button>
                             <span>yoki</span>
-                            <button type="button" class="btn btn-cencel cancel-delete-btn">Bekor qilish</button>
+                            <button type="button" class="btn btn-cencel">Bekor qilish</button>
                         </div>
                     </div>
                 </div>
@@ -275,70 +268,6 @@
     </div>
     <div id="select-menus"></div>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CString.prototype.replaceAll%2CSymbol.replace"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const deleteModal = document.querySelector('.modal-delete-stream');
-            const deleteConfirmBtn = deleteModal.querySelector('.delete-confirm-btn');
-            const cancelDeleteBtn = deleteModal.querySelector('.cancel-delete-btn');
-            const closeModalIcon = deleteModal.querySelector('.select-modal__close-icon');
-            const modalOverlay = deleteModal.querySelector('.modal__overlay');
-            let currentStreamId = null;
-
-            function openDeleteModal(streamId) {
-                currentStreamId = streamId;
-                deleteModal.classList.remove('close');
-                deleteModal.classList.add('open');
-            }
-
-            function closeDeleteModal() {
-                deleteModal.classList.add('close');
-                deleteModal.classList.remove('open');
-                currentStreamId = null;
-            }
-
-            deleteConfirmBtn.addEventListener('click', function () {
-                if (currentStreamId) {
-                    fetch("{% url 'delete_stream' %}", {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRFToken': '{{ csrf_token }}',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ stream_id: currentStreamId })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            alert(data.message);
-                            window.location.reload(); // Refresh to update stream list
-                        } else {
-                            alert(data.message);
-                        }
-                        closeDeleteModal();
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Xatolik yuz berdi.');
-                        closeDeleteModal();
-                    });
-                }
-            });
-
-            cancelDeleteBtn.addEventListener('click', closeDeleteModal);
-            closeModalIcon.addEventListener('click', closeDeleteModal);
-            modalOverlay.addEventListener('click', closeDeleteModal);
-
-            function copyLink(url) {
-                navigator.clipboard.writeText(url).then(() => {
-                    alert('Link nusxa ko\'chirildi!');
-                }).catch(err => {
-                    console.error('Copy failed:', err);
-                    alert('Nusxa ko\'chirishda xatolik!');
-                });
-            }
-
-            window.openDeleteModal = openDeleteModal; // Expose to global scope for onclick
-        });
-    </script>
+    <script src="{% static 'stream_files/script.js' %}"></script>
     </body>
 {% endblock %}
