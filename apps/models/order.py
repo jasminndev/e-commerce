@@ -1,5 +1,5 @@
 from django.db.models import Model, CharField, DecimalField, TextField, ForeignKey, \
-    DateTimeField, CASCADE, TextChoices
+    DateTimeField, CASCADE, TextChoices, SET_NULL, PositiveIntegerField
 
 
 class Region(Model):
@@ -16,24 +16,27 @@ class OrderAddress(Model):
     district = CharField(max_length=255)
 
 
-# class Order(Model):
-#     class StatusType(TextChoices):
-#         PENDING = 'pending', 'Pending'
-#         SHIPPED = 'shipped', 'Shipped'
-#         IN_TRANSIT = 'in_transit', 'In Transit'
-#         DELIVERED = 'delivered', 'Delivered'
-#         FAILED = 'failed', 'Failed'
-#
-#     name = CharField(max_length=255)
-#     phone_number = CharField(max_length=255)
-#     status = CharField(max_length=255, choices=StatusType, default=StatusType.PENDING)
-#     created_at = DateTimeField(auto_now_add=True)
-#     stream_ordering = CharField(max_length=255)
-#     payment = ForeignKey('apps.Payment', on_delete=CASCADE, related_name='orders')
-#     product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='orders')
-#     user = ForeignKey('apps.User', on_delete=CASCADE, related_name='orders')
-#     region = ForeignKey('apps.Region', on_delete=CASCADE, related_name='orders')
-#     order_address = ForeignKey('apps.OrderAddress', on_delete=CASCADE, related_name='orders')
+class Order(Model):
+    class StatusType(TextChoices):
+        NEW = 'new', 'New',
+        READY_TO_DELIVER = 'ready to deliver', 'Ready to deliver'
+        DELIVERING = 'delivering', 'Delivering'
+        DELIVERED = 'delivered', 'Delivered'
+        COMPLETED = 'completed', 'Completed'
+        MISSED_CALL = 'missed call', 'Missed call'
+        ARCHIVED = 'archived', 'Archived'
+        CANCELED = 'canceled', 'Canceled'
+
+    first_name = CharField(max_length=255)
+    phone_number = CharField(max_length=255)
+    created_at = DateTimeField(auto_now_add=True)
+    quantity = PositiveIntegerField(default=1)
+    total = DecimalField(max_digits=15, decimal_places=0)
+    status = CharField(max_length=255, choices=StatusType, default=StatusType.NEW)
+    product = ForeignKey('apps.Product', SET_NULL, related_name='orders', null=True, blank=True)
+    owner = ForeignKey('apps.User', SET_NULL, related_name='orders', null=True, blank=True)
+    region = ForeignKey('apps.Region', SET_NULL, related_name='orders', null=True, blank=True)
+    stream = ForeignKey('apps.Stream', SET_NULL, related_name='orders', null=True, blank=True)
 
 
 class Delivery(Model):

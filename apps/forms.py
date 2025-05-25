@@ -2,7 +2,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.exceptions import ValidationError
 from django.forms import Form, CharField, ModelForm, EmailField
 
-from apps.models import User, Product, Stream
+from apps.models import User, Product, Stream, Order
 
 
 class EmailForm(Form):
@@ -19,7 +19,6 @@ class LoginModelForm(Form):
 
     def validate_user(self):
         user = self.cleaned_data['email']
-
         return user
 
     def save(self, commit=True):
@@ -60,7 +59,13 @@ class AuthForm(Form):
 class ProfileModelForm(ModelForm):
     class Meta:
         model = User
-        fields = "first_name", "last_name", "phone_number", "email"
+        fields = "first_name", "last_name", "phone_number", "email",
+
+
+class UpdateProfilePhoto(ModelForm):
+    class Meta:
+        model = User
+        fields = "image",
 
 
 class PasswordForm(Form):
@@ -88,11 +93,16 @@ class StreamCreateModelForm(ModelForm):
         product_id = self.data.get('product')
         return Product.objects.filter(id=product_id).first()
 
-# class OrderModelForm(ModelForm):
-#     class Meta:
-#         model = Order
-#         fields = 'name', 'phone_number', 'owner', 'product', 'stream',
-#
-#     # def save(self, commit=True):
-#     #     object = super().save(commit=True)
-# admin_setting =
+class OrderModelForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = 'first_name', 'phone_number', 'owner', 'product', 'stream',
+
+
+class OldEmailForm(Form):
+    email = EmailField(label="Hozirgi email")
+
+
+class NewEmailForm(Form):
+    email = EmailField(label="Yangi email")
+    sms = CharField(label="Tasdiqlash kodi")

@@ -20,11 +20,16 @@
         <link rel="stylesheet" type="text/css" href="{% static 'change_passwd_files/32.f67df367.chunk.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'change_passwd_files/46.b26471dc.chunk.css' %}">
     </head>
+    <style>
+        .eye {
+            cursor: pointer;
+        }
+    </style>
     <body>
     <div id="root">
         <div class="profile-password"><h2>Shaxsiy parolni o‘zgartirish</h2>
             <div class="box">
-                <form action="change_passwd.html" method="post">
+                <form action="{% url 'change_passwd' request.user.pk %}" method="post">
                     {% csrf_token %}
                     <div class="icon">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -36,7 +41,8 @@
                     <h4>Shaxsiy parolni o‘zgartirish</h4>
                     <div class="form-group form-input-v2"><label class="form-label "
                                                                  for="input">Yangi
-                        parolingiz</label><input name="password" type="password"
+                        parolingiz</label><input name="new_password" type="password"
+                                                 id="id_new_password"
                                                  class="form-control "
                                                  autocomplete="off"
                                                  maxlength="255"
@@ -52,7 +58,7 @@
                         bo‘lishi zarur</p>
                     <div class="form-group form-input-v2"><label class="form-label "
                                                                  for="input">Parolni
-                        takrorlang</label><input name="password_confirmation"
+                        takrorlang</label><input name="confirm_password" id="id_confirm_password"
                                                  type="password" class="form-control "
                                                  autocomplete="off" maxlength="255"
                                                  placeholder="Parolni kiriting">
@@ -68,6 +74,26 @@
             </div>
         </div>
     </div>
+    <script>
+        document.querySelectorAll('.eye').forEach(eyeIcon => {
+            eyeIcon.addEventListener('click', () => {
+                const inputField = eyeIcon.previousElementSibling;
+                const isPasswordVisible = inputField.type === 'password';
+
+                inputField.type = isPasswordVisible ? 'text' : 'password';
+
+                if (isPasswordVisible) {
+                    eyeIcon.innerHTML = `
+                <path d="M12 4.5C7.5 4.5 3.738 7.252 2 11.5C3.738 15.748 7.5 18.5 12 18.5C16.5 18.5 20.262 15.748 22 11.5C20.262 7.252 16.5 4.5 12 4.5ZM12 16.5C9.514 16.5 7.5 14.486 7.5 12C7.5 9.514 9.514 7.5 12 7.5C14.486 7.5 16.5 9.514 16.5 12C16.5 14.486 14.486 16.5 12 16.5ZM12 9.5C10.621 9.5 9.5 10.621 9.5 12C9.5 13.379 10.621 14.5 12 14.5C13.379 14.5 14.5 13.379 14.5 12C14.5 10.621 13.379 9.5 12 9.5Z" fill="#293462"/>
+            `;
+                } else {
+                    eyeIcon.innerHTML = `
+                <path d="M9.34268 18.7819L7.41083 18.2642L8.1983 15.3254C7.00919 14.8874 5.91661 14.2498 4.96116 13.4534L2.80783 15.6067L1.39362 14.1925L3.54695 12.0392C2.35581 10.6103 1.52014 8.87466 1.17578 6.96818L3.14386 6.61035C3.90289 10.8126 7.57931 14.0001 12.0002 14.0001C16.4211 14.0001 20.0976 10.8126 20.8566 6.61035L22.8247 6.96818C22.4803 8.87466 21.6446 10.6103 20.4535 12.0392L22.6068 14.1925L21.1926 15.6067L19.0393 13.4534C18.0838 14.2498 16.9912 14.8874 15.8021 15.3254L16.5896 18.2642L14.6578 18.7819L13.87 15.8418C13.2623 15.9459 12.6376 16.0001 12.0002 16.0001C11.3629 16.0001 10.7381 15.9459 10.1305 15.8418L9.34268 18.7819Z" fill="#293462"/>
+            `;
+                }
+            });
+        });
+    </script>
     <div id="modal"></div>
     <div id="select-menus"></div>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CString.prototype.replaceAll%2CSymbol.replace"></script>

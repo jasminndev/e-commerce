@@ -3,7 +3,6 @@ from datetime import timedelta
 
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.handlers.modwsgi import check_password
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
@@ -12,7 +11,8 @@ from django.views import View
 from django.views.generic import ListView, FormView, UpdateView
 from redis import Redis
 
-from apps.forms import EmailForm, LoginModelForm, PasswordForm, ProfileModelForm, AuthForm
+from apps.forms import EmailForm, LoginModelForm, PasswordForm, ProfileModelForm, AuthForm, UpdateProfilePhoto, \
+    OldEmailForm, NewEmailForm
 from apps.models import Category, Product, User
 from root.settings import EMAIL_HOST_USER
 
@@ -131,9 +131,28 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('profile', kwargs={"pk": self.request.user.pk})
 
 
+class UpdateProfilePhotoView(UpdateView):
+    queryset = User.objects.all()
+    form_class = UpdateProfilePhoto
+    template_name = 'profile/profile.html'
+    login_url = reverse_lazy('login')
+    pk_url_kwarg = 'pk'
+    success_url = reverse_lazy('profile')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse('profile', kwargs={'pk': self.request.user.pk})
+
+
 class ChangePasswordFormView(FormView):
     form_class = PasswordForm
     template_name = "profile/change_passwd.html"
+    success_url = reverse_lazy('change_passwd')
 
     def form_valid(self, form):
         user = self.request.user
@@ -157,3 +176,74 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('home')
+
+
+class SendEmailFormView(FormView):
+    form_class = OldEmailForm
+    template_name = 'profile/changing_number.html'
+    success_url = reverse_lazy('get_code')
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+
+
+        verify_code = random.randrange(10 ** 5, 10 ** 6)
+        send_mail(
+            subject="Verification Code!",
+            message=f"{verify_code}",
+            from_email=EMAIL_HOST_USER,
+            recipient_list=[email],
+            fail_silently=False
+        )
+        redis = Redis()
+        redis.set(email, verify_code)
+        redis.expire(email, time=timedelta(minutes=5))
+
+        self.request.session['old_email'] = email
+
+        return redirect('get_code')
+
+    def form_invalid(self, form):
+        for error in form.errors.values():
+            messages.error(self.request, error)
+        return super().form_invalid(form)
+
+
+class ChangeEmailFormView(FormView):
+    form_class = NewEmailForm
+    template_name = 'profile/change_email_wcode.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        new_email = form.cleaned_data.get('email')
+        sms_code = str(form.cleaned_data.get('sms'))
+        old_email = self.request.session.get('old_email')
+
+        if not old_email:
+            messages.error(self.request, "Oldingi email aniqlanmadi")
+            return redirect('get_code')
+
+        redis = Redis()
+        redis_code = redis.get(old_email)
+
+        if not redis_code:
+            messages.error(self.request, "Kod muddati tugagan.")
+            return redirect('change_email')
+
+        if int(redis_code) != int(sms_code):  # noqa
+            messages.error(self.request, "Kod noto‘g‘ri.")
+            return redirect('change_email')
+
+        user = User.objects.get(email=old_email)
+        user.email = new_email
+        user.save()
+
+        login(self.request, user)
+
+        messages.success(self.request, "Email muvaffaqqiyatli o'zgartirildi!")
+        return redirect('profile')
+
+    def form_invalid(self, form):
+        for error in form.errors.values():
+            messages.error(self.request, error)
+        return super().form_invalid(form)

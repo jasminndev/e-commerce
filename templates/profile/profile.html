@@ -1,5 +1,4 @@
 {% extends 'base/profile-base.html' %}
-{% load range_filter %}
 {% block profile_base %}
     {% load static %}
     <head>
@@ -14,33 +13,35 @@
     </head>
     <body>
     <div id="root">
-        <form method="post" action="{% url 'profile' request.user.pk %}">
+        <form method="post" action="{% url 'profile_image' request.user.pk %}" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="profile-account">
-                <h2>Shaxsiy ma'lumotlar</h2>
-                <div class="profile-card">
-                    <img alt="">
-                    <div class="profile-card__info">
-                        <h3>Jasmina</h3>
-                        <div class="avatar-upload">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                />
-                            </svg>
-                            <p>Rasmni o‘zgartirish</p>
-                            <input type="file" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="right">
-                        <span class="hr-line"></span>
-                        <div class="user-id">
-                            <h5>{{ user.id }}</h5>
-                            <p>Sizning ID raqamingiz</p>
-                        </div>
+            <div class="profile-card">
+                <img src="{{ user.image.url }}">
+                <div class="profile-card__info">
+                    <h3>{{ request.image.url|default_if_none:'' }}</h3>
+                    <div class="avatar-upload">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                        </svg>
+                        <p>Rasmni o‘zgartirish</p>
+                        <input type="file" name="image" accept="image/*">
                     </div>
                 </div>
+                <div class="right">
+                    <span class="hr-line"></span>
+                    <div class="user-id">
+                        <h5>{{ user.id }}</h5>
+                        <p>Sizning ID raqamingiz</p>
+                    </div>
+                </div>
+                <button type="submit" class="profile__submit">Rasmni yuklash</button>
+            </div>
+        </form>
+        <div>
+            <form method="post" action="{% url 'profile' request.user.pk %}">
+                {% csrf_token %}
                 <div>
-                    <h3>Ma’lumotlarni o‘zgartirish</h3>
+                    <h2>Ma’lumotlarni o‘zgartirish</h2>
                     <div class="row">
                         <div class="col">
                             <div class="form-group form-input-v2">
@@ -55,16 +56,16 @@
                         </div>
                         <div class="col">
                             <div class="form-group form-input-v2">
-                                <label class="form-label" for="email">Email</label>
+                                <label class="form-label" for="id_email">Email</label>
                                 <input id="id_email" name="email" type="email"
                                        value="{{ request.user.email|default_if_none:'' }}"
                                        class="form-control"
-                                       autocomplete="off"
                                        maxlength="255"
                                        placeholder="example@gmail.com">
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col">
                             <div class="form-group form-input-v2">
@@ -72,7 +73,6 @@
                                 <input name="first_name" type="text"
                                        value="{{ request.user.first_name|default_if_none:'' }}"
                                        class="form-control"
-                                       autocomplete="off"
                                        maxlength="255"
                                        placeholder="Ism"
                                        id="id_first_name">
@@ -84,17 +84,18 @@
                                 <input name="last_name" type="text"
                                        value="{{ request.user.last_name|default_if_none:'' }}"
                                        class="form-control"
-                                       autocomplete="off"
                                        maxlength="255"
                                        placeholder="Familiya"
                                        id="id_last_name">
                             </div>
                         </div>
                     </div>
+
                     <button type="submit" class="profile__submit">O‘zgarishlarni saqlash</button>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+
     </div>
     <div id="modal"></div>
     <div id="select-menus"></div>
