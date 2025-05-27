@@ -104,5 +104,5 @@ class OldEmailForm(Form):
 
 
 class NewEmailForm(Form):
-    email = EmailField(label="Yangi email")
+    old_email = EmailField(label="Yangi email")
     sms = CharField(label="Tasdiqlash kodi")

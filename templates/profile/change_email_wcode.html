@@ -35,17 +35,15 @@
                             </svg>
                         </div>
                         <h4>Emailni o‘zgartirish</h4>
-                        <p class="subtitle"><span>{{ request.user.email }}</span> emailiga 5 xonali
-                            kod
-                            yuborildi</p>
-                        <div class="form-group form-input-v2"><label class="form-label "
-                                                                     for="input">SMS
-                            kod</label><input
-                                name="code" type="number" class="form-control "
-                                autocomplete="off" maxlength="255" placeholder="1 2 3 4 5">
-                            <p class="form__error"></p></div>
-                        <button type="submit" class="btn2 undefined"><span>Yuborish</span>
-                        </button>
+                        <p class="subtitle"><span>{{ request.user.email }}</span> emailiga 6 xonali kod yuborildi</p>
+                        <div class="form-group form-input-v2">
+                            <label class="form-label" for="input">SMS kod</label>
+                            <input type="hidden" name="old_email" value="{{ request.user.email }}">
+                            <input type="number" name="sms" class="form-control "
+                                   autocomplete="off" maxlength="255" placeholder="1 2 3 4 5 6">
+                            <p class="form__error"></p>
+                        </div>
+                        <button type="submit" class="btn2 undefined"><span>Yuborish</span></button>
                     </form>
                 </div>
             </div>

@@ -59,7 +59,8 @@
                                                             </label>
                                                             <input name="link" type="text" class="form-control"
                                                                    autocomplete="off" maxlength="255"
-                                                                   value="{{ stream.link|default:'' }}" disabled>
+                                                                   value="{{ request.get_host }}/stream/{{ stream.id }}"
+                                                                   disabled>
                                                             <p class="form__error"></p>
                                                         </div>
                                                         <div class="mantine-wadvlz">
@@ -107,7 +108,7 @@
                                                 </div>
                                                 <div class="stream-card__footer bt pt-20 f-c-sb">
                                                     <button type="button" class="btn btn-primary copy-link-btn"
-                                                            data-link="{{ stream.link|default:'' }}">
+                                                            data-link="{{ request.scheme }}://{{ request.get_host }}/stream/{{ stream.id }}">
                                                         Nusxa ko'chirish
                                                     </button>
                                                     <button type="button" class="btn btn-default">
@@ -266,6 +267,54 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Use event delegation on a parent element
+            document.querySelector('.stream__cards').addEventListener('click', function (event) {
+                const button = event.target.closest('.copy-link-btn');
+                if (!button) return; // Exit if the clicked element isn't a copy button
+
+                const link = button.getAttribute('data-link');
+                if (!link) {
+                    alert("Nusxalash uchun havola topilmadi.");
+                    return;
+                }
+
+                // Modern Clipboard API
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(link).then(() => {
+                        alert("Havola nusxa qilindi: " + link);
+                    }).catch(err => {
+                        console.error('Clipboard API error:', err);
+                        // Fallback for older browsers
+                        fallbackCopy(link);
+                    });
+                } else {
+                    // Fallback for browsers without Clipboard API
+                    fallbackCopy(link);
+                }
+            });
+
+            // Fallback copy function using textarea
+            function fallbackCopy(text) {
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.style.position = 'fixed'; // Prevent scrolling
+                    textArea.style.opacity = '0'; // Hide element
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert("Havola nusxa qilindi: " + text);
+                } catch (err) {
+                    alert("Xatolik yuz berdi: " + err);
+                }
+            }
+        });
+    </script>
+
     <div id="select-menus"></div>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CString.prototype.replaceAll%2CSymbol.replace"></script>
     <script src="{% static 'stream_files/script.js' %}"></script>

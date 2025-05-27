@@ -93,7 +93,7 @@
                 </svg>
             </a></header>
             <main>
-                <form action="{% url 'check_email' %}" method="POST">
+                <form action="{% url 'verify_code' %}" method="POST">
                     {% csrf_token %}
                     <h1>Reklamachilar <br> kabinetiga kirish</h1>
                     <div class="form-input mb-20"><label for="email">Email</label><input type="email"
@@ -107,7 +107,7 @@
                                                                                class="sms-code">
                     </div>
                     <div class="form-checkbox">
-                        <input type="checkbox" id="termsCheckbox">
+                        <input type="checkbox" id="termsCheckbox" required>
                         <div class="checkbox">
                             <svg id="checkboxSvg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">

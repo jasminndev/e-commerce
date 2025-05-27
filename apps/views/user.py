@@ -28,9 +28,36 @@ class HomeListView(ListView):
         return data
 
 
-class LoginCreateView(FormView):
+class LoginFormView(FormView):
+    form_class = EmailForm
+    template_name = 'auth/login.html'
+    success_url = reverse_lazy('verify_code')
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        verify_code = random.randrange(10 ** 5, 10 ** 6)
+        send_mail(
+            subject="Verification Code!",
+            message=f"{verify_code}",
+            from_email=EMAIL_HOST_USER,
+            recipient_list=[email],
+            fail_silently=False
+        )
+        redis = Redis()
+        redis.set(email, verify_code)
+        redis.expire(email, time=timedelta(minutes=5))
+
+        return render(self.request, 'auth/verify_code.html', {"email": email})
+
+    def form_invalid(self, form):
+        for error in form.errors.values():
+            messages.error(self.request, error)
+        return super().form_invalid(form)
+
+
+class VerifyCodeFormView(FormView):
     form_class = LoginModelForm
-    template_name = 'auth/check-message.html'
+    template_name = 'auth/verify_code.html'
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
@@ -45,7 +72,7 @@ class LoginCreateView(FormView):
 
         if int(redis_code) != int(sms_code):  # noqa
             messages.error(self.request, "Kod noto‘g‘ri.")
-            return redirect('check_email')
+            return redirect('verify_code')
 
         user, created = User.objects.get_or_create(email=email)
 
@@ -65,34 +92,7 @@ class LoginCreateView(FormView):
         return super().form_invalid(form)
 
 
-class SendMailFormView(FormView):
-    form_class = EmailForm
-    template_name = 'auth/login.html'
-    success_url = reverse_lazy('check_email')
-
-    def form_valid(self, form):
-        email = form.cleaned_data.get("email")
-        verify_code = random.randrange(10 ** 5, 10 ** 6)
-        send_mail(
-            subject="Verification Code!",
-            message=f"{verify_code}",
-            from_email=EMAIL_HOST_USER,
-            recipient_list=[email],
-            fail_silently=False
-        )
-        redis = Redis()
-        redis.set(email, verify_code)
-        redis.expire(email, time=timedelta(minutes=5))
-
-        return render(self.request, 'auth/check-message.html', {"email": email})
-
-    def form_invalid(self, form):
-        for error in form.errors.values():
-            messages.error(self.request, error)
-        return super().form_invalid(form)
-
-
-class AuthFormView(FormView):
+class LoginWithPasswordFormView(FormView):
     form_class = AuthForm
     template_name = 'auth/login_with_passwd.html'
     success_url = reverse_lazy('home')
@@ -178,14 +178,13 @@ class LogoutView(View):
         return redirect('home')
 
 
-class SendEmailFormView(FormView):
+class ChangeMailFormView(FormView):
     form_class = OldEmailForm
-    template_name = 'profile/changing_number.html'
+    template_name = 'profile/change_email.html'
     success_url = reverse_lazy('get_code')
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
-
 
         verify_code = random.randrange(10 ** 5, 10 ** 6)
         send_mail(
@@ -199,7 +198,7 @@ class SendEmailFormView(FormView):
         redis.set(email, verify_code)
         redis.expire(email, time=timedelta(minutes=5))
 
-        self.request.session['old_email'] = email
+        self.request.session['new_email'] = email
 
         return redirect('get_code')
 
@@ -209,22 +208,22 @@ class SendEmailFormView(FormView):
         return super().form_invalid(form)
 
 
-class ChangeEmailFormView(FormView):
+class ChangeMailCodeFormView(FormView):
     form_class = NewEmailForm
     template_name = 'profile/change_email_wcode.html'
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        new_email = form.cleaned_data.get('email')
+        new_email = self.request.session.get('new_email')
         sms_code = str(form.cleaned_data.get('sms'))
-        old_email = self.request.session.get('old_email')
+        old_email = form.cleaned_data.get('old_email')
 
         if not old_email:
             messages.error(self.request, "Oldingi email aniqlanmadi")
             return redirect('get_code')
 
         redis = Redis()
-        redis_code = redis.get(old_email)
+        redis_code = redis.get(new_email)
 
         if not redis_code:
             messages.error(self.request, "Kod muddati tugagan.")
@@ -241,7 +240,10 @@ class ChangeEmailFormView(FormView):
         login(self.request, user)
 
         messages.success(self.request, "Email muvaffaqqiyatli o'zgartirildi!")
-        return redirect('profile')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('profile', kwargs={"pk": self.request.user.pk})
 
     def form_invalid(self, form):
         for error in form.errors.values():
