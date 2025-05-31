@@ -18,7 +18,7 @@ class OrderAddress(Model):
 
 class Order(Model):
     class StatusType(TextChoices):
-        NEW = 'new', 'New',
+        NEW = 'new', 'New'
         READY_TO_DELIVER = 'ready to deliver', 'Ready to deliver'
         DELIVERING = 'delivering', 'Delivering'
         DELIVERED = 'delivered', 'Delivered'
@@ -32,11 +32,19 @@ class Order(Model):
     created_at = DateTimeField(auto_now_add=True)
     quantity = PositiveIntegerField(default=1)
     total = DecimalField(max_digits=15, decimal_places=0)
+    delivery_time = DateTimeField(null=True, blank=True)
+    updated_at = DateTimeField(auto_now=True)
     status = CharField(max_length=255, choices=StatusType, default=StatusType.NEW)
     product = ForeignKey('apps.Product', SET_NULL, related_name='orders', null=True, blank=True)
-    owner = ForeignKey('apps.User', SET_NULL, related_name='orders', null=True, blank=True)
+    owner = ForeignKey('apps.User', SET_NULL, related_name='owner_orders', null=True, blank=True)
     region = ForeignKey('apps.Region', SET_NULL, related_name='orders', null=True, blank=True)
     stream = ForeignKey('apps.Stream', SET_NULL, related_name='orders', null=True, blank=True)
+    operator = ForeignKey('apps.User', SET_NULL, related_name='operator_orders', null=True, blank=True)
+
+    @property
+    def discount_price(self):
+        price = float(self.product.discount_price) - (float(self.stream.discount_price) if self.stream else 0)
+        return price
 
 
 class Delivery(Model):
@@ -46,5 +54,4 @@ class Delivery(Model):
     name = CharField(max_length=255)
     price = DecimalField(max_digits=10, decimal_places=2)
     description = TextField(null=True, blank=True)
-    delivery_time = DateTimeField()
     phone_number = CharField(max_length=255)

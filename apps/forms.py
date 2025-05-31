@@ -2,7 +2,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.exceptions import ValidationError
 from django.forms import Form, CharField, ModelForm, EmailField
 
-from apps.models import User, Product, Stream, Order
+from apps.models import User, Product, Stream, Order, Delivery
 
 
 class EmailForm(Form):
@@ -68,6 +68,15 @@ class UpdateProfilePhoto(ModelForm):
         fields = "image",
 
 
+class OldEmailForm(Form):
+    email = EmailField(label="Hozirgi email")
+
+
+class NewEmailForm(Form):
+    old_email = EmailField(label="Yangi email")
+    sms = CharField(label="Tasdiqlash kodi")
+
+
 class PasswordForm(Form):
     new_password = CharField(max_length=30)
     confirm_password = CharField(max_length=30)
@@ -80,10 +89,10 @@ class PasswordForm(Form):
         return confirm_password
 
 
-class StreamCreateModelForm(ModelForm):
+class StreamModelForm(ModelForm):
     class Meta:
         model = Stream
-        fields = 'name', 'product', 'owner',
+        fields = 'name', 'product',
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -93,16 +102,15 @@ class StreamCreateModelForm(ModelForm):
         product_id = self.data.get('product')
         return Product.objects.filter(id=product_id).first()
 
+
 class OrderModelForm(ModelForm):
     class Meta:
         model = Order
         fields = 'first_name', 'phone_number', 'owner', 'product', 'stream',
 
-
-class OldEmailForm(Form):
-    email = EmailField(label="Hozirgi email")
-
-
-class NewEmailForm(Form):
-    old_email = EmailField(label="Yangi email")
-    sms = CharField(label="Tasdiqlash kodi")
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        delivery = Delivery.objects.first()
+        obj.total = float(delivery.price) + float(obj.product.discount_price)
+        obj.save()
+        return obj

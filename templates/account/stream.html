@@ -4,6 +4,7 @@
     <head>
         <meta name="theme-color" content="#000000">
         <meta name="description" content="Advertiserlar uchun admin panel">
+        <meta name="csrf-token" content="{{ csrf_token }}">
         <link rel="apple-touch-icon" href="https://admin.100k.uz/logo192.png">
         <link rel="manifest" href="https://admin.100k.uz/manifest.json">
         <link rel="stylesheet" href="{% static 'stream_files/all.min.css' %}">
@@ -269,10 +270,9 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Use event delegation on a parent element
             document.querySelector('.stream__cards').addEventListener('click', function (event) {
                 const button = event.target.closest('.copy-link-btn');
-                if (!button) return; // Exit if the clicked element isn't a copy button
+                if (!button) return;
 
                 const link = button.getAttribute('data-link');
                 if (!link) {
@@ -280,28 +280,23 @@
                     return;
                 }
 
-                // Modern Clipboard API
                 if (navigator.clipboard) {
                     navigator.clipboard.writeText(link).then(() => {
                         alert("Havola nusxa qilindi: " + link);
                     }).catch(err => {
                         console.error('Clipboard API error:', err);
-                        // Fallback for older browsers
                         fallbackCopy(link);
                     });
                 } else {
-                    // Fallback for browsers without Clipboard API
                     fallbackCopy(link);
                 }
             });
-
-            // Fallback copy function using textarea
             function fallbackCopy(text) {
                 try {
                     const textArea = document.createElement('textarea');
                     textArea.value = text;
-                    textArea.style.position = 'fixed'; // Prevent scrolling
-                    textArea.style.opacity = '0'; // Hide element
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
                     document.body.appendChild(textArea);
                     textArea.focus();
                     textArea.select();
@@ -312,6 +307,34 @@
                     alert("Xatolik yuz berdi: " + err);
                 }
             }
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.action__delete svg').forEach((btn) => {
+            btn.addEventListener('click', function () {
+                const card = btn.closest('.stream-card');
+                const streamId = card.querySelector('input[name="link"]').value.split('/').pop();
+
+                if (confirm("Rostdan ham ushbu oqimni o‘chirmoqchimisiz?")) {
+                    fetch(`/stream/delete/${streamId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        },
+                    })
+                        .then(res => {
+                            if (res.ok) {
+                                card.remove();
+                            } else {
+                                alert("O‘chirishda xatolik yuz berdi.");
+                            }
+                        })
+                        .catch(err => {
+                            alert("Internetga ulanishda xatolik yoki server javob bermayapti.");
+                        });
+                }
+            });
         });
     </script>
 

@@ -8,24 +8,13 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import ListView, FormView, UpdateView
+from django.views.generic import FormView, UpdateView
 from redis import Redis
 
 from apps.forms import EmailForm, LoginModelForm, PasswordForm, ProfileModelForm, AuthForm, UpdateProfilePhoto, \
     OldEmailForm, NewEmailForm
-from apps.models import Category, Product, User
+from apps.models import User
 from root.settings import EMAIL_HOST_USER
-
-
-class HomeListView(ListView):
-    queryset = Category.objects.all()
-    context_object_name = 'categories'
-    template_name = 'block/home.html'
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['products'] = Product.objects.all()
-        return data
 
 
 class LoginFormView(FormView):

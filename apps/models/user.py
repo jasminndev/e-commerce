@@ -38,7 +38,7 @@ class CustomerUser(UserManager):
 class User(AbstractUser):
     username = None
     email = EmailField(max_length=255, unique=True)
-    image = ImageField(upload_to='profile_photos', null=True, blank=True)
+    image = ImageField(upload_to='profile_photos', db_default='profile_photos/wllpp.jpg')
     phone_number = CharField(max_length=25, null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

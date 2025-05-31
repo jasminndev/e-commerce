@@ -43,9 +43,9 @@
                                     </div>
                                 </div>
                                 <div class="stats-filter-type"><a class="active"
-                                                                  href="https://admin.100k.uz/statistic">Oqim</a><a
+                                                                  href="{% url 'statistics' %}">Oqim</a><a
                                         class=""
-                                        href="https://admin.100k.uz/statistic?type=date">Sana</a>
+                                        href="{% url 'statistics_dates' %}">Sana</a>
                                 </div>
                                 <div class="custom-table" data-columns="10">
                                     <div class="custom-table__wrapper">
@@ -53,7 +53,7 @@
                                             <div class="rc-table">
                                                 <div class="rc-table-container">
                                                     <div class="rc-table-content">
-                                                        <table style="table-layout: auto;">
+                                                        <table style="table-layout: auto; width: 100%;">
                                                             <colgroup></colgroup>
                                                             <thead class="rc-table-thead">
                                                             <tr>
@@ -71,78 +71,37 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody class="rc-table-tbody">
-                                                            <tr data-row-key="641132"
-                                                                class="rc-table-row rc-table-row-level-0">
-                                                                <td class="rc-table-cell"><strong>eff</strong></td>
-                                                                <td class="rc-table-cell">
-                                                                    <div class="" data-tooltipped=""
-                                                                         aria-describedby="tippy-tooltip-28"
-                                                                         data-original-title="Taxminiy foyda 0 so&#39;m"
-                                                                         style="display: inline;"><span>0</span></div>
-                                                                </td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                            </tr>
-                                                            <tr data-row-key="634082"
-                                                                class="rc-table-row rc-table-row-level-0">
-                                                                <td class="rc-table-cell"><strong>yub</strong></td>
-                                                                <td class="rc-table-cell">
-                                                                    <div class="" data-tooltipped=""
-                                                                         aria-describedby="tippy-tooltip-29"
-                                                                         data-original-title="Taxminiy foyda 0 so&#39;m"
-                                                                         style="display: inline;"><span>0</span></div>
-                                                                </td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                            </tr>
-                                                            <tr data-row-key="634075"
-                                                                class="rc-table-row rc-table-row-level-0">
-                                                                <td class="rc-table-cell"><strong>zxc</strong></td>
-                                                                <td class="rc-table-cell">
-                                                                    <div class="" data-tooltipped=""
-                                                                         aria-describedby="tippy-tooltip-30"
-                                                                         data-original-title="Taxminiy foyda 0 so&#39;m"
-                                                                         style="display: inline;"><span>0</span></div>
-                                                                </td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                            </tr>
-                                                            <tr data-row-key="631717"
-                                                                class="rc-table-row rc-table-row-level-0">
-                                                                <td class="rc-table-cell"><strong>rv</strong></td>
-                                                                <td class="rc-table-cell">
-                                                                    <div class="" data-tooltipped=""
-                                                                         aria-describedby="tippy-tooltip-31"
-                                                                         data-original-title="Taxminiy foyda 0 so&#39;m"
-                                                                         style="display: inline;"><span>0</span></div>
-                                                                </td>
-                                                                <td class="rc-table-cell">1</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                                <td class="rc-table-cell">0</td>
-                                                            </tr>
+                                                            {% if streams %}
+                                                                {% for stream in streams %}
+                                                                    <tr data-row-key="{{ stream.id|default:'0' }}"
+                                                                        class="rc-table-row rc-table-row-level-0">
+                                                                        <td class="rc-table-cell">
+                                                                            <strong>{{ stream.name|default:"-" }}</strong>
+                                                                        </td>
+                                                                        <td class="rc-table-cell">
+                                                                            <div>
+                                                                                <span>{{ stream.profit|default:"0" }}</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="rc-table-cell">{{ stream.visit_count|default:"0" }}</td>
+                                                                        <td class="rc-table-cell">{{ stream.new_total|default:"0" }}</td>
+                                                                        <td class="rc-table-cell">{{ stream.ready_to_deliver|default:"0" }}</td>
+                                                                        <td class="rc-table-cell">{{ stream.delivering|default:"0" }}</td>
+                                                                        <td class="rc-table-cell">{{ stream.delivered|default:"0" }}</td>
+                                                                        <td class="rc-table-cell">{{ stream.missed_call|default:"0" }}</td>
+                                                                        <td class="rc-table-cell">{{ stream.canceled|default:"0" }}</td>
+                                                                        <td class="rc-table-cell">{{ stream.archived|default:"0" }}</td>
+                                                                        <td class="rc-table-cell">{{ stream.completed|default:"0" }}</td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <tr>
+                                                                    <td colspan="10" class="rc-table-cell"
+                                                                        style="text-align: center;">
+                                                                        Ma'lumot topilmadi
+                                                                    </td>
+                                                                </tr>
+                                                            {% endif %}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -151,6 +110,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="pagination">
                                     <div class="display-records"><p>Ko'rsatilgan ma'lumotlar: 1-4 jami 4</p></div>
                                     <ul role="navigation" aria-label="Pagination">

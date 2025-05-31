@@ -1,14 +1,9 @@
 {% extends 'base/100k.html' %}
 {% block base %}
     {% load humanize %}
-
     <style>
         #productPrice {
             font-size: 26px;
-        }
-
-        .product-gallery {
-            text-align: center;
         }
 
         .product-media {
@@ -42,19 +37,19 @@
             background-color: #a7a7a7;
         }
     </style>
-
     <main class="client-template">
         <section class="main">
             <div id="notifications-container"></div>
             <div class="container py-3">
                 <div class="row align-items-center">
                     <div class="col my-3 pr-3">
-                        <h1 class="h4 font-weight-bold mb-0">{{ product.name }}</h1>
+                        <h1 class="h4 font-weight-bold mb-0">{{ stream.product.name }}</h1>
                     </div>
                     <div class="col-auto my-3 text-right">
-                        <strong data-price="{{ product.discount_price|floatformat:'0'|intcomma }}" id="productPrice"
+                        <strong data-price="{{ stream.product.discount_price|floatformat:'0'|intcomma }}"
+                                id="productPrice"
                                 class="position-price1">
-                            {{ product.discount_price|floatformat:"0"|intcomma }} so'm
+                            {{ stream.product.discount_price|floatformat:"0"|intcomma }} so'm
                         </strong>
                         <div class="text-warning">
                             {% for _ in '12345' %}<i class="fa fa-star"></i>{% endfor %}
@@ -63,7 +58,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-4 text-center main-image">
-                        {% with product.images.all.0 as first_image %}
+                        {% with stream.product.images.all.0 as first_image %}
                             {% if first_image.video %}
                                 <video id="mainProductVideo" class="product-media" src="{{ first_image.video.url }}"
                                        controls muted autoplay loop></video>
@@ -75,7 +70,7 @@
                             {% endif %}
                         {% endwith %}
                         <div class="owl-dots">
-                            {% for image in product.images.all %}
+                            {% for image in stream.product.images.all %}
                                 {% if image.video %}
                                     <button class="owl-dot {% if forloop.first %}active{% endif %}"
                                             onclick="changeMainMedia('{{ image.video.url }}', true, this)"></button>
@@ -92,20 +87,20 @@
                               style="min-height:100%;">
                             {% csrf_token %}
                             <div>
-                                <h2 class="h3 font-weight-bold mb-4"><a href="#orderFormSection">Buyurtma berish</a>
+                                <h2 class="h3 font-weight-bold mb-4"><a href="{% url 'create-order' %}">Buyurtma berish</a>
                                 </h2>
                                 <p class="mb-3">Mahsulot narxi: <strong
-                                        class="pricetag position-price2">{{ product.discount_price|floatformat:"0"|intcomma }}
+                                        class="pricetag position-price2">{{ stream.product.discount_price|floatformat:"0"|intcomma }}
                                     so'm</strong></p>
                                 <div class="alert alert-info">
                                     <strong>Yetkazib berish narxi: 30,000 so'm</strong>
                                 </div>
                             </div>
                             <div class="my-3">
-                                <input type="hidden" name="product" value="{{ product.id }}">
-                                <input type="hidden" name="store_id" value="{{ product.store_id }}">
-                                <input type="hidden" name="product_item_id" value="{{ product.id }}">
-                                <input type="hidden" name="stream_id" value="">
+                                <input type="hidden" name="product" value="{{ stream.product.id }}">
+{#                                <input type="hidden" name="store_id" value="{{ stream.product.store_id }}">#}
+                                <input type="hidden" name="product_item_id" value="{{ stream.product.id }}">
+                                <input type="hidden" name="stream" value="{{ stream.pk }}">
                                 <div class="form-group">
                                     <input class="form-control needclear" name="first_name" placeholder="Ismingiz"
                                            type="text" required>
@@ -116,7 +111,7 @@
                                            placeholder="Telefon raqamingiz" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                    <select required class="form-control" name="region_id">
+                                    <select required class="form-control" name="region">
                                         <option value="" selected>Hududni tanlang ⬇</option>
                                         {% for region in regions %}
                                             <option value="{{ region.id }}">{{ region.name }}</option>
@@ -143,7 +138,7 @@
                     </ul>
                     <div class="tab-content py-3">
                         <div class="tab-pane fade show active" id="productDescription">
-                            <div>{{ product.description|safe }}</div>
+                            <div>{{ stream.product.description|safe }}</div>
                         </div>
                     </div>
                 </div>
@@ -163,6 +158,7 @@
                     image.style.display = "block";
                     video.style.display = "none";
                 }
+
                 document.querySelectorAll(".owl-dot").forEach(dot => dot.classList.remove("active"));
                 dotBtn.classList.add("active");
             }

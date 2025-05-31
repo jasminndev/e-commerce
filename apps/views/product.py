@@ -6,15 +6,15 @@ from django.views.generic import DetailView, ListView
 from apps.models import Category, Product, Region
 
 
-class ProductDetail(DetailView):
-    queryset = Product.objects.all()
-    context_object_name = 'product'
-    template_name = 'category/product/product_detail.html'
+class HomeListView(ListView):
+    queryset = Category.objects.all()
+    context_object_name = 'categories'
+    template_name = 'block/home.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['regions'] = Region.objects.all()
-        return context
+        data = super().get_context_data(**kwargs)
+        data['products'] = Product.objects.all()
+        return data
 
 
 class ProductListView(ListView):
@@ -32,11 +32,22 @@ class ProductListView(ListView):
         return data
 
 
+class ProductDetailView(DetailView):
+    queryset = Product.objects.all()
+    context_object_name = 'product'
+    template_name = 'category/product/product_detail.html'
+    slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['regions'] = Region.objects.all()
+        data['discount_price'] = data.get('product').discount_price
+        return data
+
+
 class SearchListView(View):
     def post(self, request):
         search = request.POST.get("search")
         products = Product.objects.filter(Q(name__icontains=search) | Q(description_icontains=search))
-        context = {"products" : products}
-        return render(request, '' , context)
-
-
+        context = {"products": products}
+        return render(request, '', context)

@@ -1,0 +1,152 @@
+{% extends 'base/account-base.html' %}
+{% block account_base %}
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style data-emotion="mantine" data-s=""></style>
+        <link rel="icon" href="https://admin.100k.uz/favicon.ico">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="theme-color" content="#000000">
+        <meta name="description" content="Advertiserlar uchun admin panel">
+        <link rel="apple-touch-icon" href="https://admin.100k.uz/logo192.png">
+        <link rel="manifest" href="https://admin.100k.uz/manifest.json">
+        <link rel="stylesheet" href="{% static 'statistics_dates_files/all.min.css' %}">
+        <title>Reklamachilar kabineti</title>
+        <link href="{% static 'statistics_dates_files/main.bbfc6021.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/154.45bd50c0.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/88.3f709be3.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/905.a466c525.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/164.8fd4a5f2.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/48.01f17801.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/379.a6858002.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/661.9db8dfee.chunk.css' %}">
+        <style data-emotion="css" data-s=""></style>
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/939.6fbae9ab.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/708.13411cd4.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/617.c1a643fa.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/664.e3c70b30.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/278.a14b95c7.chunk.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'statistics_dates_files/178.be1a466f.chunk.css' %}">
+    </head>
+    <body>
+    <div id="root">
+        <div class="app" style="position: relative;">
+            <div class="layout">
+                <div class="page-wrapper">
+                    <main class="page-content" style="position: relative;">
+                        <div class="statistic">
+                            <div class="container">
+                                <div class="form-group">
+                                    <div class="search-wrap">
+                                        <button class="mantine-UnstyledButton-root mantine-Button-root icon mantine-1ke2qfb"
+                                                type="button" data-button="true">
+                                            <div class="mantine-3xbgk5 mantine-Button-inner"><span
+                                                    class="mantine-qo1k2 mantine-Button-label"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+                                                    d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"></path></svg></span>
+                                            </div>
+                                        </button>
+                                        <input type="text" class="form-control " autocomplete="off" maxlength="255"
+                                               name="search" value="">
+                                        <button class="mantine-UnstyledButton-root mantine-Button-root submit mantine-8nr514"
+                                                type="submit" data-button="true">
+                                            <div class="mantine-3xbgk5 mantine-Button-inner"><span
+                                                    class="mantine-qo1k2 mantine-Button-label">Izlash</span></div>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="stats-filter-type"><a class=""
+                                                                  href="{% url 'statistics' %}">Oqim</a><a
+                                        class="active" href="{% url 'statistics_dates' %}">Sana</a></div>
+                                <div class="custom-table" data-columns="9">
+                                    <div class="custom-table__wrapper">
+                                        <div class="custom-table__animate" style="height: auto;">
+                                            <div class="rc-table">
+                                                <div class="rc-table-container">
+                                                    <div class="rc-table-content">
+                                                        <table style="table-layout: auto;">
+                                                            <colgroup></colgroup>
+                                                            <thead class="rc-table-thead">
+                                                            <tr>
+                                                                <th class="rc-table-cell" scope="col">Sana</th>
+                                                                <th class="rc-table-cell" scope="col">Foyda</th>
+                                                                <th class="rc-table-cell" scope="col">Yangi</th>
+                                                                <th class="rc-table-cell" scope="col">Qabul qilindi</th>
+                                                                <th class="rc-table-cell" scope="col">Yetkazilmoqda</th>
+                                                                <th class="rc-table-cell" scope="col">Yetqazib berildi
+                                                                </th>
+                                                                <th class="rc-table-cell" scope="col">Qaytib keldi</th>
+                                                                <th class="rc-table-cell" scope="col">HOLD</th>
+                                                                <th class="rc-table-cell" scope="col">Arxivlandi</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody class="rc-table-tbody">
+                                                            <tr data-row-key="0.17971423850627755"
+                                                                class="rc-table-row rc-table-row-level-0">
+                                                                <td class="rc-table-cell"><strong>2025-05-27</strong>
+                                                                </td>
+                                                                <td class="rc-table-cell">
+                                                                    <div class="" data-tooltipped=""
+                                                                         aria-describedby="tippy-tooltip-130"
+                                                                         data-original-title="Taxminiy foyda 0 so&#39;m"
+                                                                         style="display: inline;"><span>0</span></div>
+                                                                </td>
+                                                                <td class="rc-table-cell">0</td>
+                                                                <td class="rc-table-cell">0</td>
+                                                                <td class="rc-table-cell">0</td>
+                                                                <td class="rc-table-cell">0</td>
+                                                                <td class="rc-table-cell">0</td>
+                                                                <td class="rc-table-cell">0</td>
+                                                                <td class="rc-table-cell">0</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pagination">
+                                    <div class="display-records"></div>
+                                    <ul role="navigation" aria-label="Pagination">
+                                        <li class="previous disabled"><a class=" " tabindex="-1" role="button"
+                                                                         aria-disabled="true" aria-label="Previous page"
+                                                                         rel="prev"><span class="pagination__prev"><svg
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+                                                d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
+                                        </li>
+                                        <li class="selected"><a rel="canonical" role="button" tabindex="-1"
+                                                                aria-label="Page 1 is your current page"
+                                                                aria-current="page">1</a></li>
+                                        <li><a rel="next" role="button" tabindex="0" aria-label="Page 2">2</a></li>
+                                        <li><a role="button" tabindex="0" aria-label="Page 3">3</a></li>
+                                        <li><a role="button" tabindex="0" aria-label="Page 4">4</a></li>
+                                        <li><a role="button" tabindex="0" aria-label="Page 5">5</a></li>
+                                        <li><a role="button" tabindex="0" aria-label="Page 6">6</a></li>
+                                        <li class="next"><a class="" tabindex="0" role="button" aria-disabled="false"
+                                                            aria-label="Next page" rel="next"><span
+                                                class="pagination__next"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                              viewBox="0 0 384 512"><path
+                                                d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+        <div style="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;"></div>
+    </div>
+    <div id="modal"></div>
+    <div id="select-menus"></div>
+    <input id="copy" style="opacity:0;height:0;position:absolute;z-index:-1">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2Ces6%2Ces7%2CString.prototype.replaceAll%2CSymbol.replace"></script>
+    <script src="{% static 'statistics_dates_files/script.js' %}"></script>
+    </body>
+    </html>
+{% endblock %}
