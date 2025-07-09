@@ -11,7 +11,7 @@ urlpatterns = [
     path('stream-create', StreamCreateView.as_view(), name='create_stream'),
     path('stream/<int:pk>', StreamProductDetail.as_view(), name='stream-detail'),
     path('stream/', StreamListView.as_view(), name='stream'),
-    path('statistics',StatisticsListView.as_view(), name='statistics'),
-    path('statistics/dates', TemplateView.as_view(template_name='account/statistics_dates.html'), name='statistics_dates'),
+    path('statistics/', StatisticsListView.as_view(), name='statistics'),
+    # path('statistics/dates', TemplateView.as_view(template_name='account/statistics_dates.html'), name='statistics_dates'),
     path('payment', TemplateView.as_view(template_name='account/payment.html'), name='payment'),
 ]

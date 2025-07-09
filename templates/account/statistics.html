@@ -42,10 +42,9 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="stats-filter-type"><a class="active"
-                                                                  href="{% url 'statistics' %}">Oqim</a><a
-                                        class=""
-                                        href="{% url 'statistics_dates' %}">Sana</a>
+                                <div class="stats-filter-type">
+                                    <a class="active" href="{% url 'statistics' %}?statistics=oqim">Oqim</a><a
+                                        class="" href="{% url 'statistics' %}?statistics=dates">Sana</a>
                                 </div>
                                 <div class="custom-table" data-columns="10">
                                     <div class="custom-table__wrapper">
@@ -110,7 +109,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="pagination">
                                     <div class="display-records"><p>Ko'rsatilgan ma'lumotlar: 1-4 jami 4</p></div>
                                     <ul role="navigation" aria-label="Pagination">

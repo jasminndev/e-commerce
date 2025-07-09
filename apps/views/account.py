@@ -106,6 +106,12 @@ class StatisticsListView(ListView):
         return data
 
     def get_queryset(self):
+        # dates = self.request
+        # print(dates)
+        # if dates:
+        #     return super().get_queryset().filter(owner=self.request.user)
+
+        # else:
         qs = super().get_queryset().filter(owner=self.request.user)
         qs = qs.annotate(
             new_count=Count('orders', filter=Q(orders__status=Order.StatusType.NEW)),
@@ -116,8 +122,8 @@ class StatisticsListView(ListView):
             missed_call=Count('orders', filter=Q(orders__status=Order.StatusType.MISSED_CALL)),
             canceled_count=Count('orders', filter=Q(orders__status=Order.StatusType.CANCELED)),
             archived_count=Count('orders', filter=Q(orders__status=Order.StatusType.ARCHIVED)),
-            completed_count=Count('orders', filter=Q(orders__status=Order.StatusType.COMPLETED)),
-        )
+            completed_count=Count('orders', filter=Q(orders__status=Order.StatusType.COMPLETED)), )
+        return qs
         # qs.stream = qs.aggregate(
         #     total_visit_count=Sum('visit_count'),
         #     total_new_count=Sum(Order.StatusType.NEW),
@@ -129,4 +135,3 @@ class StatisticsListView(ListView):
         #     total_canceled_count=Sum(Order.StatusType.CANCELED),
         #     total_archived_count=Sum(Order.StatusType.ARCHIVED),
         # )
-        return qs
