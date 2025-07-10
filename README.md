@@ -145,6 +145,7 @@ emphasizes minimalism, speed, and exceptional user experience.
 
 ##### 📁 Project Folder Structure:
 
+```
 100k/
 ├── account/                # User authentication and profiles
 ├── cart/                   # Shopping cart functionality
@@ -158,7 +159,7 @@ emphasizes minimalism, speed, and exceptional user experience.
 ├── manage.py               # Django management file
 ├── requirements.txt        # List of dependencies
 └── README.md               # Project documentation
-
+```
 
 ### 🚀 Technologies Used
 
