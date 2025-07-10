@@ -20,32 +20,21 @@ boshqarish imkonini taqdim etish. Loyiha minimalizm, tezkorlik va foydalanuvchi 
 
 📁 Loyihaning papka tuzilmasi:
 
+```
 100k/
-
 ├── account/ # Foydalanuvchi autentifikatsiyasi va profilingi
-
 ├── cart/ # Savat (cart) funksiyalari
-
 ├── checkout/ # Buyurtma tasdiqlash va to‘lov tizimi
-
 ├── contact/ # Aloqa formasi va bog‘lanish sahifasi
-
 ├── core/ # Asosiy loyiha sozlamalari va funksiyalar
-
 ├── home/ # Bosh sahifa va umumiy funksiyalar
-
 ├── products/ # Mahsulotlar va katalog boshqaruvi
-
 ├── static/ # Statik fayllar (CSS, JS, rasmlar)
-
 ├── templates/ # HTML shablonlar
-
 ├── manage.py # Django boshqaruv fayli
-
 ├── requirements.txt # Kutubxonalar ro‘yxati
-
 └── README.md # Loyihaga oid hujjat
-
+```
 
 
 
