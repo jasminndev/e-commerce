@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     # My apps
     'apps',
+    'authentication',
     'django_ckeditor_5',
 ]
 
@@ -99,7 +100,7 @@ MEDIA_ROOT = join(BASE_DIR / 'media')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-AUTH_USER_MODEL = 'apps.User'
+AUTH_USER_MODEL = 'authentication.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

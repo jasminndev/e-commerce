@@ -67,7 +67,7 @@ class Stream(Model):
 
     name = CharField(max_length=255)
     product = ForeignKey('apps.Product', on_delete=CASCADE)
-    owner = ForeignKey('apps.User', on_delete=CASCADE)
+    owner = ForeignKey('authentication.User', on_delete=CASCADE)
     created_at = DateTimeField(auto_now=True)
     visit_count = PositiveIntegerField(default=0)
 

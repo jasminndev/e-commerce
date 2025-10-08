@@ -16,7 +16,7 @@ class Query(Model):
 
 class Payment(Model):
     card_number = CharField(max_length=255)
-    user = ForeignKey('apps.User', on_delete=CASCADE, related_name='payments')
+    user = ForeignKey('authentication.User', on_delete=CASCADE, related_name='payments')
     amount = DecimalField(max_digits=10, decimal_places=2)
 
 
@@ -43,4 +43,4 @@ class Penalty(Model):
     amount = DecimalField(max_digits=10, decimal_places=2)
     description = TextField()
     response = TextField()
-    user = ForeignKey('apps.User', on_delete=CASCADE, related_name='penalties')
+    user = ForeignKey('authentication.User', on_delete=CASCADE, related_name='penalties')

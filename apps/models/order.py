@@ -36,10 +36,10 @@ class Order(Model):
     updated_at = DateTimeField(auto_now=True)
     status = CharField(max_length=255, choices=StatusType, default=StatusType.NEW)
     product = ForeignKey('apps.Product', SET_NULL, related_name='orders', null=True, blank=True)
-    owner = ForeignKey('apps.User', SET_NULL, related_name='owner_orders', null=True, blank=True)
+    owner = ForeignKey('authentication.User', SET_NULL, related_name='owner_orders', null=True, blank=True)
     region = ForeignKey('apps.Region', SET_NULL, related_name='orders', null=True, blank=True)
     stream = ForeignKey('apps.Stream', SET_NULL, related_name='orders', null=True, blank=True)
-    operator = ForeignKey('apps.User', SET_NULL, related_name='operator_orders', null=True, blank=True)
+    operator = ForeignKey('authentication.User', SET_NULL, related_name='operator_orders', null=True, blank=True)
 
     @property
     def discount_price(self):
