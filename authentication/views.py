@@ -13,7 +13,7 @@ from redis import Redis
 
 from apps.forms import EmailForm, LoginModelForm, PasswordForm, ProfileModelForm, AuthForm, UpdateProfilePhoto, \
     OldEmailForm, NewEmailForm
-from apps.models import User
+from authentication.models import User
 from root.settings import EMAIL_HOST_USER
 
 

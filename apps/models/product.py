@@ -88,11 +88,6 @@ class Tag(Model):
     name = CharField(max_length=255)
 
 
-class ProductTag(Model):
-    tag = ForeignKey('apps.Tag', on_delete=CASCADE, related_name='product_tgs')
-    product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='product_tags')
-
-
 class Option(Model):
     name = CharField(max_length=255)
     attribute = ForeignKey('apps.Attribute', on_delete=CASCADE, related_name='options')

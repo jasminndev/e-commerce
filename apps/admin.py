@@ -4,6 +4,7 @@ from django.utils.timezone import localtime
 from unfold.admin import TabularInline
 
 from apps.models import *
+from authentication.models import Transaction
 
 admin.site.unregister(Group)
 
@@ -76,7 +77,6 @@ class StreamAdmin(admin.ModelAdmin):
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ('balance', 'review', 'status', 'created_at', 'payment_id')
-
 
 
 @admin.register(Query)

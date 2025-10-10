@@ -1,4 +1,4 @@
-from django.db.models import Model, ImageField, CharField, DecimalField, TextField, ForeignKey, \
+from django.db.models import Model, CharField, DecimalField, TextField, ForeignKey, \
     DateTimeField, CASCADE, TextChoices
 
 
@@ -18,29 +18,3 @@ class Payment(Model):
     card_number = CharField(max_length=255)
     user = ForeignKey('authentication.User', on_delete=CASCADE, related_name='payments')
     amount = DecimalField(max_digits=10, decimal_places=2)
-
-
-class Charity(Model):
-    description = TextField()
-    seller = ForeignKey('apps.Seller', on_delete=CASCADE, related_name='charities')
-    amount = DecimalField(max_digits=10, decimal_places=2)
-
-
-class Post(Model):
-    name = CharField(max_length=255)
-    description = TextField()
-    image = ImageField(upload_to='posts', null=True, blank=True)
-    created_at = DateTimeField(auto_now_add=True)
-
-
-class Settings(Model):
-    phone_number = CharField(max_length=255)
-    telegram_link = CharField(max_length=255)
-
-
-class Penalty(Model):
-    name = CharField(max_length=255)
-    amount = DecimalField(max_digits=10, decimal_places=2)
-    description = TextField()
-    response = TextField()
-    user = ForeignKey('authentication.User', on_delete=CASCADE, related_name='penalties')

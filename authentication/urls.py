@@ -1,7 +1,8 @@
 from django.urls import path
 from django.views.generic import TemplateView
 
-from apps.views import LogoutView, ChangePasswordFormView, ProfileUpdateView, UpdateProfilePhotoView, LoginFormView, \
+from authentication.views import LogoutView, ChangePasswordFormView, ProfileUpdateView, UpdateProfilePhotoView, \
+    LoginFormView, \
     VerifyCodeFormView, LoginWithPasswordFormView, ChangeMailFormView, ChangeMailCodeFormView
 
 urlpatterns = [
@@ -14,6 +15,7 @@ urlpatterns = [
     path('account/profile/change-passwd/<int:pk>', ChangePasswordFormView.as_view(), name='change_passwd'),
     path('account/profile/change_email', ChangeMailFormView.as_view(), name='change_email'),
     path('account/profile/change_email/change_email_verify_code', ChangeMailCodeFormView.as_view(), name='get_code'),
-    path('account/propfile/contact-w-tg', TemplateView.as_view(template_name="profile/contact_w_tg.html"), name='contact_w_tg'),
+    path('account/propfile/contact-w-tg', TemplateView.as_view(template_name="profile/contact_w_tg.html"),
+         name='contact_w_tg'),
 
 ]

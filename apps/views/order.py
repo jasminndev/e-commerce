@@ -26,6 +26,3 @@ class OrderCreateView(CreateView):
 
     def form_invalid(self, form):
         return super().form_invalid(form)
-
-
-
