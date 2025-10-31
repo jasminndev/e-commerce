@@ -9,7 +9,7 @@ soddalashtiradi.
 
 ---
 
-### 🎯 Maqsad
+### 🎯 Maqsad 
 
 Foydalanuvchilar uchun qulay va soddalashtirilgan e-commerce platformasi yaratish, mahsulotlar va buyurtmalarni
 boshqarish imkonini taqdim etish. Loyiha minimalizm, tezkorlik va foydalanuvchi tajribasiga e’tibor qaratadi.
